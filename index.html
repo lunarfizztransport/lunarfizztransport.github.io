@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Richelle Guice Collages</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Archivo+Black&family=Courier+Prime:wght@400;700&family=Karla:wght@400;500;700&display=swap">
+<style>
+/* Layout: cut-letter nameplate, then either a green cutting mat with taped pieces you can move, or a plaster gallery wall with framed pieces and wall labels */
+:root {
+  --bg: #E3E6E0;
+  --surface: #F3F4EF;
+  --ink: #1E2420;
+  --muted: #5A635C;
+  --line: #C4CAC1;
+  --mat: #46624F;
+  --mat-grid: rgba(235, 245, 235, .14);
+  --mat-grid-strong: rgba(235, 245, 235, .30);
+  --mat-ink: #DCE8DD;
+  --paper: #FBFAF5;
+  --frame: #232622;
+  --tape: rgba(226, 214, 160, .80);
+  --chip-yellow: #E8C547;
+  --accent: #2B4FC9;
+  --accent-ink: #FFFFFF;
+  --shadow: rgba(20, 28, 22, .30);
+
+  --f-display: "Archivo Black", "Arial Black", Impact, sans-serif;
+  --f-fat: "Abril Fatface", "Didot", Georgia, serif;
+  --f-body: "Karla", system-ui, -apple-system, sans-serif;
+  --f-type: "Courier Prime", "Courier New", monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141815; --surface: #1C211D; --ink: #E4E8E2; --muted: #9AA39B; --line: #333C35;
+    --mat: #1E3326; --mat-grid: rgba(200, 230, 205, .09); --mat-grid-strong: rgba(200, 230, 205, .20); --mat-ink: #A9C2AE;
+    --paper: #ECEAE2; --frame: #0A0C0A; --tape: rgba(214, 200, 140, .72); --chip-yellow: #D8B53E;
+    --accent: #8FA7FF; --accent-ink: #0E1430; --shadow: rgba(0, 0, 0, .6);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141815; --surface: #1C211D; --ink: #E4E8E2; --muted: #9AA39B; --line: #333C35;
+  --mat: #1E3326; --mat-grid: rgba(200, 230, 205, .09); --mat-grid-strong: rgba(200, 230, 205, .20); --mat-ink: #A9C2AE;
+  --paper: #ECEAE2; --frame: #0A0C0A; --tape: rgba(214, 200, 140, .72); --chip-yellow: #D8B53E;
+  --accent: #8FA7FF; --accent-ink: #0E1430; --shadow: rgba(0, 0, 0, .6);
+  color-scheme: dark;
+}
+
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+body { background: var(--bg); color: var(--ink); font: 16px/1.55 var(--f-body); }
+.wrap { max-width: 1280px; margin: 0 auto; padding-inline: clamp(16px, 4vw, 40px); }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+/* Header */
+header.top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px 32px; padding-block: 32px 20px; }
+.name { display: flex; flex-wrap: wrap; gap: 6px 3px; margin: 0; font-weight: 400; }
+.chip { display: inline-block; padding: .14em .2em .06em; font-size: clamp(28px, 5.4vw, 52px); line-height: 1; transform: rotate(var(--r)); box-shadow: 0 1px 2px var(--shadow); }
+.chip.c0 { background: var(--paper); color: #1E2420; font-family: var(--f-fat); }
+.chip.c1 { background: var(--accent); color: var(--accent-ink); font-family: var(--f-display); }
+.chip.c2 { background: var(--ink); color: var(--bg); font-family: var(--f-type); font-weight: 700; }
+.chip.c3 { background: var(--chip-yellow); color: #1E2420; font-family: var(--f-display); }
+.space { width: .5em; }
+.tagline { margin: 12px 0 0; font-family: var(--f-type); font-size: 14px; color: var(--muted); }
+
+nav.views { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.seg { display: inline-flex; border: 1.5px solid var(--ink); }
+.seg button { background: none; border: 0; padding: 8px 14px; cursor: pointer; font-family: var(--f-type); font-size: 13px; text-transform: uppercase; letter-spacing: .08em; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.navlink { font-family: var(--f-type); font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--ink); }
+
+/* Setup strip (for the artist; remove before launch) */
+.setup { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 10px 14px; border: 1.5px dashed var(--line); font-size: 14px; color: var(--muted); }
+.setup p { margin: 0; flex: 1 1 280px; min-width: 0; }
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border: 0; background: var(--accent); color: var(--accent-ink); font-weight: 700; font-size: 14px; cursor: pointer; }
+.btn.ghost { background: none; color: var(--ink); border: 1.5px solid var(--line); font-weight: 500; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Table view */
+.tools { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; padding-block: 18px 10px; font-family: var(--f-type); font-size: 13.5px; color: var(--muted); }
+.table {
+  position: relative; overflow: hidden; border-radius: 6px; min-height: 360px;
+  background-color: var(--mat);
+  background-image:
+    linear-gradient(var(--mat-grid-strong) 1px, transparent 1px),
+    linear-gradient(90deg, var(--mat-grid-strong) 1px, transparent 1px),
+    linear-gradient(var(--mat-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--mat-grid) 1px, transparent 1px);
+  background-size: 200px 200px, 200px 200px, 40px 40px, 40px 40px;
+}
+.ruler { position: absolute; inset: 0 0 auto 0; height: 24px; pointer-events: none; font-family: var(--f-type); font-size: 10px; color: var(--mat-ink); }
+.ruler span { position: absolute; top: 5px; transform: translateX(3px); font-variant-numeric: tabular-nums; }
+.piece {
+  position: absolute; padding: 0; border: 0; background: var(--paper); cursor: grab; touch-action: none;
+  transform: rotate(var(--r)); transform-origin: 50% 40%;
+  box-shadow: 0 2px 3px var(--shadow), 0 10px 20px -10px var(--shadow);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.piece img { display: block; width: 100%; height: auto; pointer-events: none; user-select: none; -webkit-user-drag: none; }
+.piece::before { content: ""; position: absolute; top: -9px; left: 50%; width: 36%; max-width: 76px; height: 20px; background: var(--tape); transform: translateX(-50%) rotate(var(--tr)); z-index: 1; }
+.piece:hover { box-shadow: 0 3px 4px var(--shadow), 0 16px 26px -12px var(--shadow); }
+.piece.lifted { cursor: grabbing; transform: rotate(calc(var(--r) * .5)) scale(1.04); box-shadow: 0 22px 36px -12px var(--shadow); transition: none; }
+.piece:focus-visible { outline-offset: 5px; }
+
+/* Wall view */
+.wall { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr)); gap: 56px 44px; align-items: center; padding-block: 40px 24px; }
+.hung { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 0; border: 0; background: none; cursor: zoom-in; text-align: left; }
+.frame { width: calc(var(--s) * 100%); background: var(--paper); padding: clamp(10px, 7%, 22px); border: 8px solid var(--frame); box-shadow: 0 16px 24px -14px var(--shadow); transition: transform .25s ease; }
+.frame img { display: block; width: 100%; height: auto; }
+.hung:hover .frame { transform: translateY(-3px); }
+.label { align-self: flex-start; width: 100%; max-width: 30ch; padding-left: 10px; border-left: 2px solid var(--line); font-family: var(--f-type); font-size: 12.5px; line-height: 1.5; color: var(--muted); }
+.label b { display: block; font-family: var(--f-body); font-size: 15px; color: var(--ink); }
+.tag { display: inline-block; margin-left: 6px; padding: 0 5px; font-family: var(--f-type); font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; vertical-align: 2px; background: var(--chip-yellow); color: #1E2420; }
+
+/* Lightbox */
+dialog { border: 0; padding: 0; margin: auto; width: min(1100px, calc(100vw - 32px)); max-width: none; max-height: calc(100vh - 32px); background: var(--surface); color: var(--ink); overflow: auto; }
+dialog::backdrop { background: rgba(10, 12, 10, .82); }
+.lb { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); }
+.lb-img { display: flex; align-items: center; justify-content: center; padding: clamp(16px, 3vw, 36px); background: var(--mat); }
+.lb-img img { max-height: 76vh; width: auto; max-width: 100%; object-fit: contain; box-shadow: 0 18px 30px -14px rgba(0,0,0,.6); }
+.lb-info { display: flex; flex-direction: column; gap: 18px; padding: clamp(20px, 3vw, 34px); min-width: 0; }
+.lb-info h2 { margin: 0; font-family: var(--f-fat); font-weight: 400; font-size: clamp(26px, 3vw, 36px); line-height: 1.1; text-wrap: balance; }
+.lb-info dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; font-family: var(--f-type); font-size: 14px; }
+.lb-info dt { color: var(--muted); }
+.lb-info dd { margin: 0; }
+.cutfrom h3 { margin: 0 0 6px; font-family: var(--f-type); font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.cutfrom ul { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px; }
+.cutfrom li { padding: 3px 8px; background: var(--paper); color: #1E2420; font-size: 13.5px; box-shadow: 0 1px 2px var(--shadow); }
+.note { margin: 0; font-size: 14px; color: var(--muted); }
+.lb-nav { display: flex; gap: 8px; margin-top: auto; }
+@media (max-width: 760px) { .lb { grid-template-columns: 1fr; } .lb-img img { max-height: 55vh; } }
+
+/* About */
+.about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 24px 48px; padding-block: 72px 32px; margin-top: 56px; border-top: 1.5px solid var(--ink); }
+.about h2 { margin: 0; font-family: var(--f-display); font-weight: 400; font-size: clamp(28px, 4vw, 40px); line-height: 1; text-transform: uppercase; }
+.about p { margin: 0 0 14px; max-width: 62ch; font-size: 17px; }
+.about a { color: var(--accent); font-weight: 700; }
+@media (max-width: 700px) { .about { grid-template-columns: 1fr; } }
+footer { padding-block: 24px 40px; font-family: var(--f-type); font-size: 13px; color: var(--muted); }
+
+@media (prefers-reduced-motion: reduce) { .piece, .frame { transition: none; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1 class="name" id="name" aria-label="Richelle Guice"></h1>
+      <p class="tagline">Hand-cut collage from old National Geographics and stray magazines</p>
+    </div>
+    <nav class="views" aria-label="Views">
+      <div class="seg" role="group" aria-label="Choose a view">
+        <button type="button" id="v-table" data-view="table" aria-pressed="true">Table</button>
+        <button type="button" id="v-wall" data-view="wall" aria-pressed="false">Wall</button>
+      </div>
+      <a class="navlink" href="#about">About</a>
+    </nav>
+  </header>
+
+  <!-- SETUP STRIP: a preview tool for you. Only shows when you open the file on your computer, or add #setup to the web address. -->
+  <div class="setup" id="setup" hidden>
+    <p id="setup-msg">These are sample pieces. Add photos of your collages to see the site with your real work. They stay in this browser tab and don't upload anywhere.</p>
+    <label class="btn" for="upload">Add photos</label>
+    <input class="sr" type="file" id="upload" accept="image/*" multiple>
+  </div>
+
+  <section id="table-view" aria-label="Collage table">
+    <div class="tools">
+      <span>Drag pieces around the table. Click one to see it up close.</span>
+      <button type="button" class="btn ghost" id="shuffle">Shuffle the table</button>
+    </div>
+    <div class="table" id="table">
+      <div class="ruler" id="ruler" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <section id="wall-view" aria-label="Gallery wall" hidden>
+    <div class="wall" id="wall"></div>
+  </section>
+
+  <section class="about" id="about">
+    <h2>About</h2>
+    <div>
+      <p>I make collages by hand from National Geographic back issues and whatever magazines turn up at thrift stores and library sales. Each piece starts with one image I can't stop looking at, then gets built out with scissors, an X-Acto knife and a lot of glue stick.</p>
+      <p>Prints and commissions are open. Message me on Instagram: <a id="ig" href="https://www.instagram.com/" target="_blank" rel="noopener">@your.handle</a></p>
+    </div>
+  </section>
+
+  <footer id="stats"></footer>
+</div>
+
+<dialog id="lightbox" aria-label="Collage detail">
+  <div class="lb">
+    <div class="lb-img"><img id="lb-img" alt=""></div>
+    <div class="lb-info">
+      <h2 id="lb-title"></h2>
+      <dl id="lb-meta"></dl>
+      <div class="cutfrom" id="lb-cut"></div>
+      <p class="note" id="lb-note" hidden></p>
+      <div class="lb-nav">
+        <button type="button" class="btn ghost" id="lb-prev">← Previous</button>
+        <button type="button" class="btn ghost" id="lb-next">Next →</button>
+        <button type="button" class="btn" id="lb-close" style="margin-left:auto">Close</button>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<script>
+/* ------------------------------------------------------------------
+   EDIT HERE. Your name, Instagram handle, and your pieces.
+   To add a real piece: put the photo in an "images" folder next to
+   this file and set src: "images/your-photo.jpg". Delete sample: true.
+   Pieces without a src get a generated placeholder.
+------------------------------------------------------------------- */
+const SITE = { name: "Richelle Guice", instagram: "your.handle" };
+
+let PIECES = [
+  { title: "Tide Pool Parliament", year: 2025, size: "9 × 12 in", medium: "Magazine paper on bristol board", sources: ["National Geographic, June 1981", "Seed catalog, 1987"], w: 3, h: 4, sample: true },
+  { title: "Weather for Moths", year: 2025, size: "8 × 10 in", medium: "Magazine paper on bristol board", sources: ["National Geographic, March 1978", "Life, 1969"], w: 4, h: 5, sample: true },
+  { title: "Borrowed Savanna", year: 2025, size: "12 × 9 in", medium: "Magazine paper and acrylic on board", sources: ["National Geographic, Oct 1992", "Thrift-store travel magazine"], w: 4, h: 3, sample: true },
+  { title: "The Orchid Census", year: 2024, size: "11 × 14 in", medium: "Magazine paper on watercolor paper", sources: ["National Geographic, Jan 1985", "Encyclopedia plate, 1960s", "Seed catalog, 1987"], w: 11, h: 14, sample: true },
+  { title: "Field Guide to Leaving", year: 2024, size: "8 × 8 in", medium: "Magazine paper on bristol board", sources: ["Sunset, 1970s", "National Geographic, June 1981"], w: 1, h: 1, sample: true },
+  { title: "Night Shift at the Glacier", year: 2025, size: "9 × 12 in", medium: "Magazine paper on bristol board", sources: ["National Geographic, Feb 1976"], w: 3, h: 4, sample: true },
+  { title: "Postcard from the Deep End", year: 2024, size: "6 × 4 in", medium: "Magazine paper on postcard stock", sources: ["National Geographic, Oct 1992", "Life, 1969"], w: 3, h: 2, sample: true },
+  { title: "Lake Effect", year: 2024, size: "5 × 7 in", medium: "Magazine paper on bristol board", sources: ["Thrift-store travel magazine", "National Geographic, March 1978"], w: 5, h: 7, sample: true }
+];
+
+/* ---------------- placeholder art (paper-cut look, drawn on canvas) ---------------- */
+function rng(seed) { return function () { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const PALETTES = [
+  ["#E9DFC7", "#2F5D62", "#D9A441", "#B5432F", "#1D2B3A"],
+  ["#F1E6D2", "#3A6B4E", "#E2B04A", "#8C3B2E", "#22303F"],
+  ["#DCE3E0", "#C2553A", "#E8C26A", "#2C4A6B", "#14202B"],
+  ["#EFE3CF", "#5B7F95", "#D07A3A", "#3E5641", "#1B1B1B"]
+];
+function tornPath(x, r, X, Y, w, h, pad) {
+  const s = 6, j = () => (r() - .5) * 3.2;
+  x.beginPath();
+  for (let t = 0; t <= w; t += s) x.lineTo(X + t, Y - pad + j());
+  for (let t = 0; t <= h; t += s) x.lineTo(X + w + pad + j(), Y + t);
+  for (let t = w; t >= 0; t -= s) x.lineTo(X + t, Y + h + pad + j());
+  for (let t = h; t >= 0; t -= s) x.lineTo(X - pad + j(), Y + t);
+  x.closePath();
+}
+function torn(x, r, X, Y, w, h, color) {
+  tornPath(x, r, X, Y, w, h, 3); x.fillStyle = "#F7F3E8"; x.fill();
+  tornPath(x, r, X, Y, w, h, 0); x.fillStyle = color; x.fill();
+}
+function makeArt(seed, aw, ah) {
+  const W = 600, H = Math.round(600 * ah / aw);
+  const c = document.createElement("canvas"); c.width = W; c.height = H;
+  const x = c.getContext("2d"), r = rng(seed * 9973 + 7), pal = PALETTES[seed % PALETTES.length];
+  const pick = () => pal[1 + Math.floor(r() * (pal.length - 1))];
+  x.fillStyle = pal[0]; x.fillRect(0, 0, W, H);
+  for (let i = 0; i < 1400; i++) { x.fillStyle = `rgba(0,0,0,${r() * .06})`; x.fillRect(r() * W, r() * H, 1 + r() * 2, 1); }
+  const hy = H * (.5 + r() * .25);
+  torn(x, r, -10, hy, W + 20, H - hy + 10, pick());
+  // halftone sun, like a clipped printed photo
+  const cx = W * (.25 + r() * .5), cy = hy - H * (.08 + r() * .2), rad = W * (.14 + r() * .14), step = 7;
+  x.save(); x.beginPath(); x.arc(cx, cy, rad, 0, 7); x.clip();
+  x.fillStyle = pick(); x.fillRect(cx - rad, cy - rad, rad * 2, rad * 2);
+  x.fillStyle = "rgba(255,255,255,.35)";
+  for (let yy = cy - rad, row = 0; yy < cy + rad; yy += step, row++) {
+    const d = (yy - (cy - rad)) / (2 * rad);
+    for (let xx = cx - rad; xx < cx + rad; xx += step) { x.beginPath(); x.arc(xx + (row % 2 ? step / 2 : 0), yy, step * .48 * d, 0, 7); x.fill(); }
+  }
+  x.restore();
+  const n = 2 + Math.floor(r() * 3);
+  for (let i = 0; i < n; i++) {
+    x.save(); x.translate(r() * W, r() * H); x.rotate((r() - .5) * 1.2);
+    const w = W * (.2 + r() * .45), h = H * (.04 + r() * .09);
+    torn(x, r, -w / 2, -h / 2, w, h, pick()); x.restore();
+  }
+  // striped cut-out rectangle
+  x.save(); x.translate(W * (.15 + r() * .7), H * (.2 + r() * .6)); x.rotate((r() - .5) * .6);
+  const sw = W * (.14 + r() * .16), sh = sw * (1 + r());
+  x.fillStyle = "#F7F3E8"; x.fillRect(-sw / 2 - 3, -sh / 2 - 3, sw + 6, sh + 6);
+  x.beginPath(); x.rect(-sw / 2, -sh / 2, sw, sh); x.clip();
+  const a = pick(), b = pick();
+  for (let y = -sh / 2, k = 0; y < sh / 2; y += 6, k++) { x.fillStyle = k % 2 ? a : b; x.fillRect(-sw / 2, y, sw, 6); }
+  x.restore();
+  return c.toDataURL("image/jpeg", .86);
+}
+
+/* ---------------- nameplate ---------------- */
+(function nameplate() {
+  const el = document.getElementById("name"), r = rng(42);
+  [...SITE.name].forEach((ch, i) => {
+    const s = document.createElement("span");
+    if (ch === " ") { s.className = "space"; }
+    else { s.className = "chip c" + (i * 7 + 3) % 4; s.textContent = ch; s.style.setProperty("--r", ((r() - .5) * 9).toFixed(1) + "deg"); }
+    s.setAttribute("aria-hidden", "true");
+    el.appendChild(s);
+  });
+  el.setAttribute("aria-label", SITE.name);
+  const ig = document.getElementById("ig");
+  ig.textContent = "@" + SITE.instagram;
+  ig.href = "https://www.instagram.com/" + SITE.instagram + "/";
+})();
+
+/* ---------------- state ---------------- */
+const table = document.getElementById("table"), ruler = document.getElementById("ruler"), wall = document.getElementById("wall");
+let pos = [], heightFrac = .8, cols = 0, topZ = 10, els = [];
+
+function prepare() { PIECES.forEach((p, i) => { if (!p.src) p.src = makeArt(i + 1, p.w, p.h); }); }
+
+function colsFor(W) { return W < 520 ? 2 : W < 900 ? 3 : 4; }
+
+function scatter() {
+  const W = table.clientWidth; if (!W) return;
+  cols = colsFor(W);
+  const cellW = W / cols, pw = cellW * .72, cellH = pw * 1.42, top = 44;
+  pos = PIECES.map((p, i) => {
+    const col = i % cols, row = Math.floor(i / cols), ph = pw * p.h / p.w;
+    return {
+      fx: (col * cellW + (cellW - pw) / 2 + (Math.random() - .5) * cellW * .16) / W,
+      fy: (top + row * cellH + Math.max(0, (cellH - ph) / 2) + (Math.random() - .5) * cellH * .1) / W,
+      fw: pw / W,
+      r: ((Math.random() - .5) * 12).toFixed(1),
+      tr: ((Math.random() - .5) * 10).toFixed(1)
+    };
+  });
+  heightFrac = (top + Math.ceil(PIECES.length / cols) * cellH + 24) / W;
+  apply();
+}
+
+function apply() {
+  const W = table.clientWidth; if (!W) return;
+  table.style.height = Math.round(heightFrac * W) + "px";
+  els.forEach((el, i) => {
+    const p = pos[i]; if (!p) return;
+    el.style.left = p.fx * W + "px"; el.style.top = p.fy * W + "px"; el.style.width = p.fw * W + "px";
+    el.style.setProperty("--r", p.r + "deg"); el.style.setProperty("--tr", p.tr + "deg");
+  });
+  ruler.innerHTML = "";
+  for (let x = 80, n = 2; x < W; x += 80, n += 2) {
+    const s = document.createElement("span"); s.style.left = x + "px"; s.textContent = n; ruler.appendChild(s);
+  }
+}
+
+function buildTable() {
+  els.forEach(el => el.remove());
+  els = PIECES.map((p, i) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "piece";
+    b.setAttribute("aria-label", `${p.title}. Open details`);
+    const img = document.createElement("img"); img.src = p.src; img.alt = p.title; img.draggable = false;
+    b.appendChild(img);
+    enableDrag(b, i);
+    b.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLightbox(i); } });
+    table.appendChild(b);
+    return b;
+  });
+}
+
+function enableDrag(el, i) {
+  let sx, sy, sl, st, moved = false, active = false;
+  el.addEventListener("pointerdown", e => {
+    if (e.button !== 0) return;
+    active = true; moved = false; sx = e.clientX; sy = e.clientY; sl = el.offsetLeft; st = el.offsetTop;
+    el.setPointerCapture(e.pointerId); el.style.zIndex = ++topZ; el.classList.add("lifted");
+  });
+  el.addEventListener("pointermove", e => {
+    if (!active) return;
+    const dx = e.clientX - sx, dy = e.clientY - sy;
+    if (!moved && Math.hypot(dx, dy) < 5) return;
+    moved = true;
+    const W = table.clientWidth, H = table.clientHeight, w = el.offsetWidth, h = el.offsetHeight;
+    const L = Math.min(W - w * .3, Math.max(-w * .7, sl + dx));
+    const T = Math.min(H - h * .3, Math.max(0, st + dy));
+    el.style.left = L + "px"; el.style.top = T + "px";
+    pos[i].fx = L / W; pos[i].fy = T / W;
+  });
+  const end = () => {
+    if (!active) return;
+    active = false; el.classList.remove("lifted");
+    if (!moved) openLightbox(i);
+  };
+  el.addEventListener("pointerup", end);
+  el.addEventListener("pointercancel", () => { active = false; el.classList.remove("lifted"); });
+  el.addEventListener("click", e => e.preventDefault());
+}
+
+const SCALES = [1, .82, .94, .76, .9, .84];
+function buildWall() {
+  wall.innerHTML = "";
+  PIECES.forEach((p, i) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "hung"; b.style.setProperty("--s", SCALES[i % SCALES.length]);
+    b.innerHTML = `<div class="frame"><img alt=""></div><div class="label"><b></b><span class="meta"></span></div>`;
+    b.querySelector("img").src = p.src; b.querySelector("img").alt = p.title;
+    const t = b.querySelector("b"); t.textContent = p.title;
+    if (p.sample) { const tag = document.createElement("span"); tag.className = "tag"; tag.textContent = "Sample"; t.appendChild(tag); }
+    b.querySelector(".meta").textContent = [p.year, p.size].filter(Boolean).join(" · ") || "Add details in the site file";
+    b.addEventListener("click", () => openLightbox(i));
+    wall.appendChild(b);
+  });
+}
+
+function buildStats() {
+  const mags = new Set(PIECES.flatMap(p => p.sources || []));
+  document.getElementById("stats").textContent =
+    `${PIECES.length} pieces` + (mags.size ? ` · cut from ${mags.size} different magazines and books` : "") + ` · © ${SITE.name}`;
+}
+
+/* ---------------- lightbox ---------------- */
+const dlg = document.getElementById("lightbox");
+let current = 0;
+function openLightbox(i) {
+  current = (i + PIECES.length) % PIECES.length;
+  const p = PIECES[current];
+  const img = document.getElementById("lb-img"); img.src = p.src; img.alt = p.title;
+  const h = document.getElementById("lb-title"); h.textContent = p.title;
+  if (p.sample) { const tag = document.createElement("span"); tag.className = "tag"; tag.textContent = "Sample"; h.appendChild(tag); }
+  const meta = document.getElementById("lb-meta"); meta.innerHTML = "";
+  [["Year", p.year], ["Size", p.size], ["Medium", p.medium]].forEach(([k, v]) => {
+    if (!v) return;
+    const dt = document.createElement("dt"), dd = document.createElement("dd");
+    dt.textContent = k; dd.textContent = v; meta.append(dt, dd);
+  });
+  const cut = document.getElementById("lb-cut"); cut.innerHTML = "";
+  if (p.sources && p.sources.length) {
+    cut.innerHTML = "<h3>Cut from</h3><ul></ul>";
+    p.sources.forEach(s => { const li = document.createElement("li"); li.textContent = s; cut.querySelector("ul").appendChild(li); });
+  }
+  const note = document.getElementById("lb-note");
+  note.hidden = !p.mine;
+  note.textContent = "This is your photo. Add its title, year, size and the magazines it came from in the PIECES list in index.html.";
+  if (!dlg.open) dlg.showModal();
+}
+document.getElementById("lb-prev").onclick = () => openLightbox(current - 1);
+document.getElementById("lb-next").onclick = () => openLightbox(current + 1);
+document.getElementById("lb-close").onclick = () => dlg.close();
+dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
+dlg.addEventListener("keydown", e => {
+  if (e.key === "ArrowLeft") openLightbox(current - 1);
+  if (e.key === "ArrowRight") openLightbox(current + 1);
+});
+
+/* ---------------- views ---------------- */
+function setView(v) {
+  document.getElementById("table-view").hidden = v !== "table";
+  document.getElementById("wall-view").hidden = v !== "wall";
+  document.querySelectorAll(".seg button").forEach(b => b.setAttribute("aria-pressed", b.dataset.view === v));
+  try { localStorage.setItem("collage-view", v); } catch (e) {}
+  if (v === "table") { if (!pos.length || colsFor(table.clientWidth) !== cols) scatter(); else apply(); }
+}
+document.querySelectorAll(".seg button").forEach(b => b.addEventListener("click", () => setView(b.dataset.view)));
+document.getElementById("shuffle").addEventListener("click", scatter);
+
+new ResizeObserver(() => {
+  const W = table.clientWidth; if (!W) return;
+  if (colsFor(W) !== cols) scatter(); else apply();
+}).observe(table);
+
+/* ---------------- preview with your own photos ---------------- */
+let replacedSamples = false;
+document.getElementById("upload").addEventListener("change", async e => {
+  const files = [...e.target.files].filter(f => f.type.startsWith("image/"));
+  if (!files.length) return;
+  const added = await Promise.all(files.map(f => new Promise(res => {
+    const url = URL.createObjectURL(f), img = new Image();
+    img.onload = () => res({ title: f.name.replace(/\.[^.]+$/, "").replace(/[-_]+/g, " "), src: url, w: img.naturalWidth, h: img.naturalHeight, sources: [], mine: true });
+    img.onerror = () => res(null);
+    img.src = url;
+  })));
+  const good = added.filter(Boolean);
+  if (!good.length) return;
+  PIECES = replacedSamples ? PIECES.concat(good) : good;
+  replacedSamples = true;
+  document.getElementById("setup-msg").textContent = `Showing ${PIECES.length} of your photos. Add more anytime. They disappear when you close this tab.`;
+  render();
+  e.target.value = "";
+});
+
+const setupOn = location.protocol === "file:" || location.hostname === "localhost" || location.hash === "#setup";
+document.getElementById("setup").hidden = !setupOn;
+
+function render() { prepare(); buildTable(); buildWall(); buildStats(); scatter(); }
+
+render();
+let start = "table";
+if (location.hash === "#wall") start = "wall";
+else { try { start = localStorage.getItem("collage-view") || "table"; } catch (e) {} }
+setView(start === "wall" ? "wall" : "table");
+</script>
+</body>
+</html>
