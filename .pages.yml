@@ -23,8 +23,8 @@ content:
         label: Description
         type: text
       - name: year
-        label: Year
-        type: number
+        label: Date (e.g. May 2026)
+        type: string
       - name: size
         label: Size (e.g. 9 × 12 in)
         type: string

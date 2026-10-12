@@ -1,36 +1,36 @@
 [
   {
     "image": "/images/rome.jpg",
-    "title": "Untitled",
-    "year": null,
-    "size": "",
+    "title": "Strangers in Close Quarters",
+    "year": "May 2026",
+    "size": "6 × 9 in",
     "medium": "",
     "sources": [],
     "description": ""
   },
   {
     "image": "/images/americans.jpg",
-    "title": "Untitled",
-    "year": null,
-    "size": "",
+    "title": "Americans",
+    "year": "September 2026",
+    "size": "6 × 9 in",
     "medium": "",
     "sources": [],
     "description": ""
   },
   {
     "image": "/images/tv-diner.jpg",
-    "title": "Untitled",
-    "year": null,
-    "size": "",
+    "title": "TV Diner",
+    "year": "September 2026",
+    "size": "6 × 6 in",
     "medium": "",
     "sources": [],
     "description": ""
   },
   {
     "image": "/images/hike-to-kansas.jpg",
-    "title": "Untitled",
-    "year": null,
-    "size": "",
+    "title": "Hike to Kansas",
+    "year": "September 2026",
+    "size": "6 × 9 in",
     "medium": "",
     "sources": [],
     "description": ""
@@ -38,46 +38,55 @@
   {
     "image": "/images/dragon-lake.jpg",
     "title": "Untitled",
-    "year": null,
-    "size": "",
+    "year": "September 2025",
+    "size": "10.5 × 8 in",
     "medium": "",
     "sources": [],
-    "description": ""
+    "description": "In my underworld there is a red dragon."
   },
   {
     "image": "/images/balloons.jpg",
     "title": "Untitled",
-    "year": null,
-    "size": "",
+    "year": "October 2025",
+    "size": "6 × 6 in",
     "medium": "",
     "sources": [],
-    "description": ""
+    "description": "I don’t believe in God but…"
   },
   {
     "image": "/images/redwoods.jpg",
-    "title": "Untitled",
-    "year": null,
-    "size": "",
+    "title": "Stranger Things (not the show)",
+    "year": "November 2025",
+    "size": "6 × 6 in",
     "medium": "",
     "sources": [],
-    "description": ""
+    "description": "Welcome to Blahdell."
   },
   {
     "image": "/images/sea-cliffs.jpg",
-    "title": "Untitled",
-    "year": null,
-    "size": "",
+    "title": "Newfoundland’s Coast",
+    "year": "September 2025",
+    "size": "11 × 14 in",
     "medium": "",
     "sources": [],
-    "description": ""
+    "description": "My first experiment… interesting."
   },
   {
     "image": "/images/ice-terraces.jpg",
     "title": "Untitled",
-    "year": null,
-    "size": "",
+    "year": "April 2026",
+    "size": "5 × 16 in",
     "medium": "",
     "sources": [],
-    "description": ""
+    "description": "This world shrinks into a speck."
+  },
+  {
+    "image": "/images/red-car.jpg",
+    "title": "Untitled",
+    "description": "",
+    "year": "",
+    "size": "",
+    "medium": "",
+    "sources": []
   }
 ]

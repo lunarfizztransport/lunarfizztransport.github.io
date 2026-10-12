@@ -295,7 +295,7 @@ function render() {
   $("showcase").onclick = () => openViewer(0);
 
   const mags = new Set(PIECES.flatMap(p => p.sources || []).filter(Boolean));
-  const years = PIECES.map(p => Number(p.year)).filter(Boolean);
+  const years = PIECES.map(p => Number((String(p.year || "").match(/\d{4}/) || [])[0])).filter(Boolean);
   const lo = Math.min(...years), hi = Math.max(...years);
   const span = !years.length ? "" : lo === hi ? String(lo) : `${lo}–${String(hi).slice(2)}`;
   const specs = [
