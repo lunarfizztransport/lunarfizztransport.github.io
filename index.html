@@ -102,7 +102,10 @@ button { font: inherit; color: inherit; }
 .doc .row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
 .doc a:not(.btn) { color: var(--select); }
 .video { display: flex; align-items: center; justify-content: center; aspect-ratio: 16 / 9; max-width: 100%; margin: 4px 0 16px; background: #000; color: #9A9A9A; font-family: var(--f-label); font-size: 22px; text-align: center; padding: 12px; }
-.doc.intro { max-width: none; padding-bottom: 0; border-bottom: 1px dashed var(--chrome-lo); }
+.doc.notes { max-width: none; border-top: 1px dashed var(--chrome-lo); font-size: 14px; color: var(--ink-soft); }
+.doc.notes h4 { margin: 0 0 8px; font-family: var(--f-label); font-size: 19px; font-weight: 400; color: var(--ink); }
+.file .has-story { font-family: var(--f-label); font-size: 15px; color: var(--ink-soft); }
+.story-text { white-space: pre-line; }
 .tagline { font-family: var(--f-label); font-size: 21px; line-height: 1.2; color: var(--ink-soft); }
 
 /* Taskbar */
@@ -162,12 +165,15 @@ a, button, .btn, .icon, .file, .task, .win .ctl, .win .bar, [data-open] { cursor
 <section class="win raised" id="w-collages" data-title="Collages" style="left:140px; top:24px; width:min(860px, calc(100vw - 170px)); height:min(640px, calc(100vh - 90px));" hidden>
   <div class="bar"><h2>Collages</h2><button type="button" class="ctl raised" data-min aria-label="Minimize">_</button><button type="button" class="ctl raised max-btn" data-max aria-label="Maximize">□</button><button type="button" class="ctl raised" data-close aria-label="Close">×</button></div>
   <div class="body sunken">
-    <div class="doc intro">
+    <div class="files" id="files"></div><p class="doc" id="files-status" hidden>Couldn't load the collages. Refresh the page to try again.</p>
+    <div class="doc notes">
+      <h4>About these collages</h4>
       <p>Sometimes I go into a collage with an idea. Other times I see something that calls to me, and a strong idea forms from there.</p>
       <p>Then I go digging through random scraps: old National Geographics, stray photos, whatever paper I've got. None of it was meant to go together, and the fun part is getting unrelated images to mean something in a weird, fantastical way. Stuff changes along the way, with lots of redoing and undoing. But the idea stays, and that's where the inspiration comes from.</p>
       <p>Prints and commissions are open. Message me on Instagram at <a class="ig-link" href="https://www.instagram.com/lunarfizztransport/" target="_blank" rel="noopener">@lunarfizztransport</a>.</p>
+      <p id="stories-note" hidden>Some collages come with a short story I wrote. Open one and click <em>Read the story</em>.</p>
     </div>
-    <div class="files" id="files"></div><p class="doc" id="files-status" hidden>Couldn't load the collages. Refresh the page to try again.</p></div>
+  </div>
   <div class="status sunken"><span id="files-count">Loading…</span><span>Hand-cut paper, photographed</span></div>
 </section>
 
@@ -181,6 +187,7 @@ a, button, .btn, .icon, .file, .task, .win .ctl, .win .bar, [data-open] { cursor
         <h3 id="v-title"></h3>
         <p class="meta" id="v-meta"></p>
         <p class="desc" id="v-desc" hidden></p>
+        <div><button type="button" class="btn raised" id="v-story-btn" hidden>Read the story ▶</button></div>
         <div class="v-nav">
           <button type="button" class="btn raised" id="v-prev">◀ Prev</button>
           <button type="button" class="btn raised" id="v-next">Next ▶</button>
@@ -219,6 +226,17 @@ a, button, .btn, .icon, .file, .task, .win .ctl, .win .bar, [data-open] { cursor
   </div>
 </section>
 
+<!-- Story -->
+<section class="win raised" id="w-story" data-title="Story.txt" style="left:260px; top:70px; width:min(600px, calc(100vw - 290px)); height:min(560px, calc(100vh - 120px));" hidden>
+  <div class="bar"><h2 id="story-bar">Story.txt</h2><button type="button" class="ctl raised" data-min aria-label="Minimize">_</button><button type="button" class="ctl raised max-btn" data-max aria-label="Maximize">□</button><button type="button" class="ctl raised" data-close aria-label="Close">×</button></div>
+  <div class="body sunken">
+    <div class="doc">
+      <h3 id="story-title"></h3>
+      <div class="story-text" id="story-text"></div>
+    </div>
+  </div>
+</section>
+
 <!-- About -->
 <section class="win raised" id="w-about" data-title="About.txt" style="left:300px; top:90px; width:min(560px, calc(100vw - 330px)); height:min(520px, calc(100vh - 140px));" hidden>
   <div class="bar"><h2>About.txt</h2><button type="button" class="ctl raised" data-min aria-label="Minimize">_</button><button type="button" class="ctl raised max-btn" data-max aria-label="Maximize">□</button><button type="button" class="ctl raised" data-close aria-label="Close">×</button></div>
@@ -229,7 +247,7 @@ a, button, .btn, .icon, .file, .task, .win .ctl, .win .bar, [data-open] { cursor
       <p>By day I'm a data engineer. Outside of work I make collages, play drums, and build things. More and more, those worlds overlap: I'm interested in how technology can support creative work, not replace it.</p>
       <p>On this desktop you'll find:</p>
       <ul>
-        <li><strong>Collages:</strong> hand-cut paper pieces made from old magazines and stray photos.</li>
+        <li><strong>Collages:</strong> hand-cut paper pieces made from old magazines and stray photos.<span id="about-stories" hidden> Some are paired with short stories I wrote.</span></li>
         <li><strong>Drum Groove Tool:</strong> a practice tool I built while learning drums. It listens to my playing and shows how my timing sits.</li>
         <li>More side projects as I make them.</li>
       </ul>
@@ -320,6 +338,7 @@ function renderFiles() {
     b.innerHTML = `<div class="thumb"><img alt="" loading="lazy" decoding="async"></div><span></span>`;
     b.querySelector("img").src = src(p); b.querySelector("img").alt = p.title || "";
     b.querySelector("span").textContent = p.title || "Untitled";
+    if (p.story) b.insertAdjacentHTML("beforeend", `<em class="has-story">+ story</em>`);
     b.addEventListener("click", () => openViewer(i));
     box.appendChild(b);
   });
@@ -335,8 +354,18 @@ function openViewer(i) {
   $("w-viewer").dataset.title = p.title || "Viewer";
   $("v-meta").textContent = [p.year, p.size].filter(Boolean).join(" · ");
   $("v-desc").textContent = p.description || ""; $("v-desc").hidden = !p.description;
+  $("v-story-btn").hidden = !p.story;
   openWin("w-viewer");
 }
+function openStory(i) {
+  const p = PIECES[i];
+  const name = (p.title || "Untitled") + ".txt";
+  $("story-title").textContent = p.title || "Untitled";
+  $("story-text").textContent = p.story || "";
+  $("story-bar").textContent = name; $("w-story").dataset.title = name;
+  openWin("w-story");
+}
+$("v-story-btn").onclick = () => openStory(current);
 $("v-prev").onclick = () => openViewer(current - 1);
 $("v-next").onclick = () => openViewer(current + 1);
 document.addEventListener("keydown", e => {
@@ -366,6 +395,8 @@ async function getJSON(path) {
   if (f > 0) list.unshift(...list.splice(f, 1));
   PIECES = list;
   renderFiles();
+  const anyStory = PIECES.some(p => p.story);
+  $("stories-note").hidden = !anyStory; $("about-stories").hidden = !anyStory;
 })();
 </script>
 </body>

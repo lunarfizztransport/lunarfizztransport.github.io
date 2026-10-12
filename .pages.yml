@@ -25,6 +25,9 @@ content:
       - name: description
         label: Description
         type: text
+      - name: story
+        label: Short story (optional; adds a "Read the story" button)
+        type: text
       - name: year
         label: Date (e.g. May 2026)
         type: string
