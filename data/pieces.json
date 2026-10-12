@@ -1,1 +1,74 @@
-[]
+[
+  {
+    "image": "/images/rome.jpg",
+    "title": "Untitled",
+    "year": null,
+    "size": "",
+    "medium": "",
+    "sources": []
+  },
+  {
+    "image": "/images/americans.jpg",
+    "title": "Americans",
+    "year": null,
+    "size": "",
+    "medium": "",
+    "sources": []
+  },
+  {
+    "image": "/images/tv-diner.jpg",
+    "title": "TV Diner",
+    "year": null,
+    "size": "",
+    "medium": "",
+    "sources": []
+  },
+  {
+    "image": "/images/hike-to-kansas.jpg",
+    "title": "Hike to Kansas",
+    "year": null,
+    "size": "",
+    "medium": "",
+    "sources": []
+  },
+  {
+    "image": "/images/dragon-lake.jpg",
+    "title": "Untitled",
+    "year": null,
+    "size": "",
+    "medium": "",
+    "sources": []
+  },
+  {
+    "image": "/images/balloons.jpg",
+    "title": "Untitled",
+    "year": null,
+    "size": "",
+    "medium": "",
+    "sources": []
+  },
+  {
+    "image": "/images/redwoods.jpg",
+    "title": "Untitled",
+    "year": null,
+    "size": "",
+    "medium": "",
+    "sources": []
+  },
+  {
+    "image": "/images/sea-cliffs.jpg",
+    "title": "Untitled",
+    "year": null,
+    "size": "",
+    "medium": "",
+    "sources": []
+  },
+  {
+    "image": "/images/ice-terraces.jpg",
+    "title": "Untitled",
+    "year": null,
+    "size": "",
+    "medium": "",
+    "sources": []
+  }
+]
