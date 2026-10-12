@@ -123,6 +123,11 @@ button { font: inherit; color: inherit; }
 .lineup { margin: 0; max-height: 180px; overflow: auto; padding: 8px 10px; background: #000; color: #5BE37D; font: 14px/1.35 var(--f-text); white-space: pre; }
 .lineup .k { color: #E9C46A; }
 
+/* Pool coach window: the trainer runs in its own page, embedded */
+.win .status a { color: var(--select); }
+.win .status .links { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+.app-frame { display: block; width: 100%; height: 100%; border: 0; background: #e9eeeb; }
+
 /* Taskbar */
 .taskbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 9999; display: flex; align-items: center; gap: 6px; height: calc(var(--taskbar) + env(safe-area-inset-bottom, 0px)); padding: 4px 6px calc(4px + env(safe-area-inset-bottom, 0px)); border-top: 2px solid var(--chrome-hi); background: var(--chrome); }
 .taskbar .start { font-family: var(--f-pixel); font-size: 13px; padding: 5px 10px; }
@@ -176,6 +181,10 @@ a, button, .btn, .icon, .file, .task, .win .ctl, .win .bar, [data-open] { cursor
     <button type="button" class="icon" role="listitem" data-open="w-vigenere">
       <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="5" y="1" width="6" height="1" fill="#BDBDBD"/><rect x="4" y="2" width="1" height="5" fill="#BDBDBD"/><rect x="11" y="2" width="1" height="5" fill="#BDBDBD"/><rect x="3" y="7" width="10" height="8" fill="#E9C46A"/><rect x="3" y="14" width="10" height="1" fill="#B88A2A"/><rect x="7" y="9" width="2" height="2" fill="#0A0A0A"/><rect x="7" y="11" width="2" height="2" fill="#0A0A0A"/></svg>
       <span>Vigenère Cipher</span>
+    </button>
+    <button type="button" class="icon" role="listitem" data-open="w-pool">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="5" y="2" width="6" height="1" fill="#F2F2F2"/><rect x="4" y="3" width="8" height="1" fill="#F2F2F2"/><rect x="3" y="4" width="10" height="8" fill="#F2F2F2"/><rect x="3" y="5" width="10" height="6" fill="#FFD400"/><rect x="4" y="12" width="8" height="1" fill="#BDBDBD"/><rect x="5" y="13" width="6" height="1" fill="#BDBDBD"/><rect x="6" y="6" width="4" height="4" fill="#FFFFFF"/><rect x="7" y="6" width="2" height="1" fill="#0A0A0A"/><rect x="7" y="7" width="1" height="1" fill="#0A0A0A"/><rect x="8" y="7" width="1" height="2" fill="#0A0A0A"/><rect x="7" y="9" width="2" height="1" fill="#0A0A0A"/><rect x="4" y="4" width="2" height="1" fill="#FFFFFF"/></svg>
+      <span>Pool Coach</span>
     </button>
     <button type="button" class="icon" role="listitem" data-open="w-about">
       <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="1" width="10" height="14" fill="#F2F2F2"/><rect x="10" y="1" width="3" height="3" fill="#BDBDBD"/><rect x="5" y="5" width="6" height="1" fill="#555"/><rect x="5" y="7" width="6" height="1" fill="#555"/><rect x="5" y="9" width="6" height="1" fill="#555"/><rect x="5" y="11" width="4" height="1" fill="#555"/></svg>
@@ -294,6 +303,13 @@ a, button, .btn, .icon, .file, .task, .win .ctl, .win .bar, [data-open] { cursor
   <div class="status sunken"><span id="vg-status"></span><span>Classic Vigenère, A–Z</span></div>
 </section>
 
+<!-- Pool coach -->
+<section class="win raised" id="w-pool" data-title="Pool Coach" style="left:150px; top:20px; width:min(1120px, calc(100vw - 180px)); height:min(760px, calc(100vh - 80px));" hidden>
+  <div class="bar"><h2>Pool Coach: Shot Caller</h2><button type="button" class="ctl raised" data-min aria-label="Minimize">_</button><button type="button" class="ctl raised max-btn" data-max aria-label="Maximize">□</button><button type="button" class="ctl raised" data-close aria-label="Close">×</button></div>
+  <div class="body sunken"><iframe class="app-frame" src="pool/" title="Shot Caller pool strategy coach" loading="lazy"></iframe></div>
+  <div class="status sunken"><span>8-ball and 9-ball strategy coach</span><span class="links"><a href="https://github.com/lunarfizztransport/pool-coach" target="_blank" rel="noopener">Code on GitHub ↗</a><a href="pool/" target="_blank" rel="noopener">Open full screen ↗</a></span></div>
+</section>
+
 <!-- Story -->
 <section class="win raised" id="w-story" data-title="Story.txt" style="left:260px; top:70px; width:min(600px, calc(100vw - 290px)); height:min(560px, calc(100vh - 120px));" hidden>
   <div class="bar"><h2 id="story-bar">Story.txt</h2><button type="button" class="ctl raised" data-min aria-label="Minimize">_</button><button type="button" class="ctl raised max-btn" data-max aria-label="Maximize">□</button><button type="button" class="ctl raised" data-close aria-label="Close">×</button></div>
@@ -319,6 +335,7 @@ a, button, .btn, .icon, .file, .task, .win .ctl, .win .bar, [data-open] { cursor
         <li><strong>Collages:</strong> hand-cut paper pieces made from old magazines and stray photos.<span id="about-stories" hidden> Some are paired with short stories and poems I wrote.</span></li>
         <li><strong>Drum Groove Tool:</strong> a practice tool I built while learning drums. It listens to my playing and shows how my timing sits.</li>
         <li><strong>Vigenère Cipher:</strong> encrypt and decrypt messages with a classic 16th-century cipher, right in the browser.</li>
+        <li><strong>Pool Coach:</strong> I love playing pool, and strategy is the hard part. Call your shot on an 8-ball or 9-ball table and a coach that simulates every option tells you what it would play and why.</li>
         <li>More side projects as I make them.</li>
       </ul>
       <p>Say hi on Instagram at <a class="ig-link" href="https://www.instagram.com/lunarfizztransport/" target="_blank" rel="noopener">@lunarfizztransport</a>, or see my code on <a href="https://github.com/lunarfizztransport" target="_blank" rel="noopener">GitHub</a>.</p>
@@ -332,6 +349,7 @@ a, button, .btn, .icon, .file, .task, .win .ctl, .win .bar, [data-open] { cursor
     <li><button type="button" class="item" role="menuitem" data-open="w-collages">Collages</button></li>
     <li><button type="button" class="item" role="menuitem" data-open="w-drums">Drum Groove Tool</button></li>
     <li><button type="button" class="item" role="menuitem" data-open="w-vigenere">Vigenère Cipher</button></li>
+    <li><button type="button" class="item" role="menuitem" data-open="w-pool">Pool Coach</button></li>
     <li><button type="button" class="item" role="menuitem" data-open="w-about">About.txt</button></li>
     <li><hr></li>
     <li><a class="item" id="ig-menu" role="menuitem" href="https://www.instagram.com/lunarfizztransport/" target="_blank" rel="noopener">Instagram ↗</a></li>
@@ -394,6 +412,13 @@ function renderTasks() {
   });
 }
 document.querySelectorAll("[data-open]").forEach(el => el.addEventListener("click", () => openWin(el.dataset.open)));
+
+/* Clicks inside an embedded page (Pool Coach) never reach its window, so
+   bring the window to the front when the page takes focus. */
+window.addEventListener("blur", () => setTimeout(() => {
+  const f = document.activeElement;
+  if (f && f.tagName === "IFRAME") { const w = f.closest(".win"); if (w) focusWin(w); }
+}));
 
 /* ---------------- start menu ---------------- */
 const startBtn = $("start"), startMenu = $("start-menu");
@@ -540,7 +565,7 @@ async function getJSON(path) {
   try { const r = await fetch(path + "?v=" + Date.now()); return r.ok ? await r.json() : null; } catch (e) { return null; }
 }
 (async function start() {
-  const map = { collages: "w-collages", drums: "w-drums", vigenere: "w-vigenere", about: "w-about" };
+  const map = { collages: "w-collages", drums: "w-drums", vigenere: "w-vigenere", pool: "w-pool", about: "w-about" };
   openWin(map[location.hash.slice(1)] || "w-collages");
   const [site, pieces] = await Promise.all([getJSON("data/site.json"), getJSON("data/pieces.json")]);
   if (site) {

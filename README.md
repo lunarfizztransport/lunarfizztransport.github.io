@@ -20,12 +20,14 @@ screen with larger buttons, and the Start menu is the way to get around.
 | **Collages** | A file browser of my collages. Click one to open it in a viewer with its date, size and description. Collages with a story or poem show a **Read the story / poem** button that opens the writing in its own text window. |
 | **Drum Groove Tool** | A practice tool I built while learning drums, with live demo pages it made from my own playing: how it learned my kit, a take analyzed, and the same take with AI coaching. |
 | **Vigenère Cipher** | Encrypt and decrypt text with the classic Vigenère cipher, live as you type. Shows how each key letter lines up with the message. Runs entirely in the browser. |
+| **Pool Coach** | Shot Caller, a pool strategy trainer. Pick 8-ball or 9-ball, call your shot (ball, pocket, spin, speed, or a safety), and a coach that simulates every option grades your call and shows what it would play and why. Also at [/pool/](https://lunarfizztransport.github.io/pool/). |
 | **About.txt** | What this site is about. |
 | **Instagram / GitHub** | Links out. |
 
 Direct links to a window: [#collages](https://lunarfizztransport.github.io/#collages),
 [#drums](https://lunarfizztransport.github.io/#drums),
 [#vigenere](https://lunarfizztransport.github.io/#vigenere),
+[#pool](https://lunarfizztransport.github.io/#pool),
 [#about](https://lunarfizztransport.github.io/#about).
 
 ## How it's built
@@ -39,6 +41,7 @@ data/pieces.json    the collages: image, title, date, size, description, story o
 data/site.json      site settings: my name and Instagram handle
 images/             collage photos
 drums/              Drum Groove Tool demo pages and their audio
+pool/index.html     Pool Coach (Shot Caller), embedded by the Pool Coach window; a copy of index.html from github.com/lunarfizztransport/pool-coach
 .pages.yml          Pages CMS configuration for editing collages in a browser
 ```
 
