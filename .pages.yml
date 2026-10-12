@@ -57,7 +57,7 @@ content:
     format: json
     fields:
       - name: name
-        label: Your name
+        label: Name shown on the site
         type: string
       - name: instagram
         label: Instagram handle (without the @)

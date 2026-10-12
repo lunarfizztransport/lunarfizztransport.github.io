@@ -9,7 +9,7 @@ It's a snapshot of who I am and how I'm bridging technology with the things I
 love.
 
 The site looks like a late-90s computer desktop: pixel icons open draggable
-windows, open windows appear in a taskbar at the bottom, and the **RG** Start
+windows, open windows appear in a taskbar at the bottom, and the **LF** Start
 button opens a menu of every window and link. On phones, windows open full
 screen with larger buttons, and the Start menu is the way to get around.
 

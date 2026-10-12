@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Richelle Guice Desktop</title>
+<title>lunarfizztransport</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen&family=VT323&family=IBM+Plex+Mono:wght@400;600&display=swap">
@@ -136,7 +136,7 @@ button { font: inherit; color: inherit; }
 .task.on { border-color: var(--chrome-dk) var(--chrome-hi) var(--chrome-hi) var(--chrome-dk); background: #DCDCDC; }
 .clock { padding: 4px 10px; font-family: var(--f-label); font-size: 19px; font-variant-numeric: tabular-nums; white-space: nowrap; }
 
-/* Start menu: the RG button opens a list of every window and link */
+/* Start menu: the LF button opens a list of every window and link */
 .start-menu { position: fixed; left: 6px; bottom: calc(var(--taskbar) + env(safe-area-inset-bottom, 0px) + 2px); z-index: 10000; display: flex; min-width: 240px; box-shadow: 4px 4px 0 rgba(0,0,0,.6); }
 .start-menu .brand { writing-mode: vertical-rl; transform: rotate(180deg); padding: 8px 5px; background: var(--title); color: var(--title-ink); font-family: var(--f-pixel); font-size: 11px; letter-spacing: .12em; }
 .start-menu ul { flex: 1; margin: 0; padding: 4px; list-style: none; }
@@ -327,7 +327,7 @@ a, button, .btn, .icon, .file, .task, .win .ctl, .win .bar, [data-open] { cursor
   <div class="bar"><h2>About.txt</h2><button type="button" class="ctl raised" data-min aria-label="Minimize">_</button><button type="button" class="ctl raised max-btn" data-max aria-label="Maximize">□</button><button type="button" class="ctl raised" data-close aria-label="Close">×</button></div>
   <div class="body sunken">
     <div class="doc">
-      <h3 id="about-name">Richelle Guice</h3>
+      <h3 id="about-name">lunarfizztransport</h3>
       <p>This site is home to my creative work and side projects, all in one place. It's a snapshot of who I am and how I'm bridging technology with the things I love.</p>
       <p>By day I'm a data engineer. Outside of work I make collages, play drums, and build things. More and more, those worlds overlap: I'm interested in how technology can support creative work, not replace it.</p>
       <p>On this desktop you'll find:</p>
@@ -344,7 +344,7 @@ a, button, .btn, .icon, .file, .task, .win .ctl, .win .bar, [data-open] { cursor
 </section>
 
 <div class="start-menu raised" id="start-menu" role="menu" hidden>
-  <div class="brand" aria-hidden="true">RICHELLE GUICE</div>
+  <div class="brand" aria-hidden="true">LUNARFIZZTRANSPORT</div>
   <ul>
     <li><button type="button" class="item" role="menuitem" data-open="w-collages">Collages</button></li>
     <li><button type="button" class="item" role="menuitem" data-open="w-drums">Drum Groove Tool</button></li>
@@ -358,7 +358,7 @@ a, button, .btn, .icon, .file, .task, .win .ctl, .win .bar, [data-open] { cursor
 </div>
 
 <nav class="taskbar" aria-label="Taskbar">
-  <button type="button" class="start btn raised" id="start" aria-haspopup="menu" aria-expanded="false" aria-controls="start-menu">RG ▴</button>
+  <button type="button" class="start btn raised" id="start" aria-haspopup="menu" aria-expanded="false" aria-controls="start-menu" aria-label="Start menu">LF ▴</button>
   <div class="tasks" id="tasks"></div>
   <div class="clock sunken" id="clock"></div>
 </nav>
@@ -372,7 +372,7 @@ a, button, .btn, .icon, .file, .task, .win .ctl, .win .bar, [data-open] { cursor
    menu item and an entry in the hash map in start() for a direct link).
 ------------------------------------------------------------------- */
 const $ = id => document.getElementById(id);
-let SITE = { name: "Richelle Guice", instagram: "lunarfizztransport" };
+let SITE = { name: "lunarfizztransport", instagram: "lunarfizztransport" };
 let PIECES = [];
 const phone = () => window.matchMedia("(max-width: 700px)").matches;
 
