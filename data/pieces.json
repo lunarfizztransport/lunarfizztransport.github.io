@@ -1,72 +1,17 @@
 [
   {
-    "image": "/images/sea-cliffs.jpg",
-    "title": "Newfoundland’s Coast",
-    "year": "September 2025",
-    "size": "11 × 14 in",
+    "image": "/images/red-car.jpg",
+    "title": "Modern Trials",
+    "description": "Idk if I like this one. Whatever.",
+    "year": "September 2026",
+    "size": "6 × 8 in",
     "medium": "",
     "sources": [],
-    "description": "My first experiment… interesting.",
     "featured": false
   },
   {
-    "image": "/images/dragon-lake.jpg",
-    "title": "Denali, Alaska",
-    "year": "September 2025",
-    "size": "10.5 × 8 in",
-    "medium": "",
-    "sources": [],
-    "description": "In my underworld there is a red dragon.",
-    "featured": false,
-    "story": "The purple and blue hues of the sunset call to me. Below, the river mirrors the sky so perfectly.\n\nStill, something unsettles me.\n\nThrough the fog, a narrow stream leads me to a black opening carved into the land. Someone stands in the doorway, and I can’t tell if they have found their way out or are stepping into a journey that has just begun.\n\nHands break the surface, grasping, reaching. It seems others have tried this crossing before.\n\nA solitary figure drifts by in a small raft, and I wonder if they take passengers. Despite the surrounding peril, their stillness feels grounding. Others watch from above, some curious, some ready to act.\n\nI want to know what lies beyond the mountain. I hope it is good, but I doubt it.\n\nExperimenting with this kind of writing is fun, bringing my work to life in a new way. I want to hint at a story without explaining it outright. One of the reasons I love collaging is that I can piece together unrelated elements and let them form meaning in unexpected ways. :-)"
-  },
-  {
-    "image": "/images/balloons.jpg",
-    "title": "Untitled 2.0",
-    "year": "October 2025",
-    "size": "6 × 6 in",
-    "medium": "",
-    "sources": [],
-    "description": "I don’t believe in God but…",
-    "featured": false
-  },
-  {
-    "image": "/images/redwoods.jpg",
-    "title": "Stranger Things (not the show)",
-    "year": "November 2025",
-    "size": "6 × 6 in",
-    "medium": "",
-    "sources": [],
-    "description": "Welcome to Blahdell.",
-    "featured": true,
-    "story": "She had wandered off trail in the Bonair Forest, craving quiet from the other hikers’ chatter. Deeper and deeper she went, pushing through bushes and ferns, letting the forest close behind her.\n\nShe was lost in thought when a faint melody broke the calm.\n\nA saxophone, somewhere ahead.\n\nShe moved toward it carefully, afraid to disrupt what she had stumbled upon. The music grew louder.\n\nShe stopped. Frozen and unseen.\n\nA weathered sign, swallowed by moss, read Blahdell.\n\n“Some hidden sanctuary”, she murmured.\n\nThe saxophonist sat on a sapphire blue rock, its surface smooth and luminous, as if it had fallen from somewhere else entirely. Her brows furrowed. Impossible.\n\nAn absurdly large butterfly perched on a tree. A single red tulip stood tall in her path, glowing faintly. Its scent sharp and strangely like Mrs. Meyer’s lavender hand soap. Nearby, a streetlamp burned steadily, casting no shadow at all. Indifferent to day or night. Off to the side, a tent sat empty.\n\nStrange, she thought\n\nShe stayed perfectly still, afraid any movement might unravel the scene.\n\nThrough the trees, the Space Needle loomed, its base tangled in ferns… but it was off…\n\nThen she noticed a hand high in the canopy, casually tossing lettuce onto the path.\n\n“What the hell?” she breathed, stepping closer.\n\nThe butterfly stirred. It descended toward the lettuce and began to eat.\n\nShe tilted her head toward the sun, squinting through the thick canopy, trying to make out the owner of the arm.\n\nThe music stopped. Her stomach dropped.\n\nShit.\n\nThe saxophonist turned to her, voice low and urgent.\n\n“Quick! Go back! Before they see you”.\n\nThe Space Needle began to flare blue.\n\nA signal.\n\nThe hand withdrew. The streetlamp brightened. The tulip went dark. And the butterfly kept eating, unbothered.\n\nA jet screamed overhead, too low, too fast.\n\nShe spun."
-  },
-  {
-    "image": "/images/ice-terraces.jpg",
-    "title": "Untitled 3.0",
-    "year": "April 2026",
-    "size": "5 × 16 in",
-    "medium": "",
-    "sources": [],
-    "description": "This world shrinks into a speck.",
-    "featured": false,
-    "story": "Whose barn this is I think I know.\nThey live out on the tranquil snow.\nShe fishes searching for her meal,\nBut swimming fast upstream they go.\n\nA person tends a fire of steel,\nUnconcerned about the ordeal.\nA gentle growing tree still thrives,\nBeneath the sun it starts to heal.\n\nAn owl flying high arrives,\nJust as everyone survives\nThe overwhelming, winding trek\nOf fragile life to stay alive.\n\nA world away beyond this deck\nWe slave to all powerful tech.\nWith far too long a road to check\nThis world now shrinks into a speck.",
-    "story_type": "poem",
-    "story_note": "Inspired by Robert Frost"
-  },
-  {
-    "image": "/images/rome.jpg",
-    "title": "Strangers in Close Quarters",
-    "year": "May 2026",
-    "size": "6 × 9 in",
-    "medium": "",
-    "sources": [],
-    "description": "",
-    "featured": false
-  },
-  {
-    "image": "/images/hike-to-kansas.jpg",
-    "title": "Hike to Kansas",
+    "image": "/images/americans.jpg",
+    "title": "Americans",
     "year": "September 2026",
     "size": "6 × 9 in",
     "medium": "",
@@ -85,8 +30,8 @@
     "featured": false
   },
   {
-    "image": "/images/americans.jpg",
-    "title": "Americans",
+    "image": "/images/hike-to-kansas.jpg",
+    "title": "Hike to Kansas",
     "year": "September 2026",
     "size": "6 × 9 in",
     "medium": "",
@@ -95,13 +40,68 @@
     "featured": false
   },
   {
-    "image": "/images/red-car.jpg",
-    "title": "Modern Trials",
-    "description": "Idk if I like this one. Whatever.",
-    "year": "September 2026",
-    "size": "6 × 8 in",
+    "image": "/images/rome.jpg",
+    "title": "Strangers in Close Quarters",
+    "year": "May 2026",
+    "size": "6 × 9 in",
     "medium": "",
     "sources": [],
+    "description": "",
+    "featured": false
+  },
+  {
+    "image": "/images/ice-terraces.jpg",
+    "title": "Untitled 3.0",
+    "year": "April 2026",
+    "size": "5 × 16 in",
+    "medium": "",
+    "sources": [],
+    "description": "This world shrinks into a speck.",
+    "featured": false,
+    "story": "Whose barn this is I think I know.\nThey live out on the tranquil snow.\nShe fishes searching for her meal,\nBut swimming fast upstream they go.\n\nA person tends a fire of steel,\nUnconcerned about the ordeal.\nA gentle growing tree still thrives,\nBeneath the sun it starts to heal.\n\nAn owl flying high arrives,\nJust as everyone survives\nThe overwhelming, winding trek\nOf fragile life to stay alive.\n\nA world away beyond this deck\nWe slave to all powerful tech.\nWith far too long a road to check\nThis world now shrinks into a speck.",
+    "story_type": "poem",
+    "story_note": "Inspired by Robert Frost"
+  },
+  {
+    "image": "/images/redwoods.jpg",
+    "title": "Stranger Things (not the show)",
+    "year": "November 2025",
+    "size": "6 × 6 in",
+    "medium": "",
+    "sources": [],
+    "description": "Welcome to Blahdell.",
+    "featured": true,
+    "story": "She had wandered off trail in the Bonair Forest, craving quiet from the other hikers’ chatter. Deeper and deeper she went, pushing through bushes and ferns, letting the forest close behind her.\n\nShe was lost in thought when a faint melody broke the calm.\n\nA saxophone, somewhere ahead.\n\nShe moved toward it carefully, afraid to disrupt what she had stumbled upon. The music grew louder.\n\nShe stopped. Frozen and unseen.\n\nA weathered sign, swallowed by moss, read Blahdell.\n\n“Some hidden sanctuary”, she murmured.\n\nThe saxophonist sat on a sapphire blue rock, its surface smooth and luminous, as if it had fallen from somewhere else entirely. Her brows furrowed. Impossible.\n\nAn absurdly large butterfly perched on a tree. A single red tulip stood tall in her path, glowing faintly. Its scent sharp and strangely like Mrs. Meyer’s lavender hand soap. Nearby, a streetlamp burned steadily, casting no shadow at all. Indifferent to day or night. Off to the side, a tent sat empty.\n\nStrange, she thought\n\nShe stayed perfectly still, afraid any movement might unravel the scene.\n\nThrough the trees, the Space Needle loomed, its base tangled in ferns… but it was off…\n\nThen she noticed a hand high in the canopy, casually tossing lettuce onto the path.\n\n“What the hell?” she breathed, stepping closer.\n\nThe butterfly stirred. It descended toward the lettuce and began to eat.\n\nShe tilted her head toward the sun, squinting through the thick canopy, trying to make out the owner of the arm.\n\nThe music stopped. Her stomach dropped.\n\nShit.\n\nThe saxophonist turned to her, voice low and urgent.\n\n“Quick! Go back! Before they see you”.\n\nThe Space Needle began to flare blue.\n\nA signal.\n\nThe hand withdrew. The streetlamp brightened. The tulip went dark. And the butterfly kept eating, unbothered.\n\nA jet screamed overhead, too low, too fast.\n\nShe spun."
+  },
+  {
+    "image": "/images/balloons.jpg",
+    "title": "Untitled 2.0",
+    "year": "October 2025",
+    "size": "6 × 6 in",
+    "medium": "",
+    "sources": [],
+    "description": "I don’t believe in God but…",
+    "featured": false
+  },
+  {
+    "image": "/images/dragon-lake.jpg",
+    "title": "Denali, Alaska",
+    "year": "September 2025",
+    "size": "10.5 × 8 in",
+    "medium": "",
+    "sources": [],
+    "description": "In my underworld there is a red dragon.",
+    "featured": false,
+    "story": "The purple and blue hues of the sunset call to me. Below, the river mirrors the sky so perfectly.\n\nStill, something unsettles me.\n\nThrough the fog, a narrow stream leads me to a black opening carved into the land. Someone stands in the doorway, and I can’t tell if they have found their way out or are stepping into a journey that has just begun.\n\nHands break the surface, grasping, reaching. It seems others have tried this crossing before.\n\nA solitary figure drifts by in a small raft, and I wonder if they take passengers. Despite the surrounding peril, their stillness feels grounding. Others watch from above, some curious, some ready to act.\n\nI want to know what lies beyond the mountain. I hope it is good, but I doubt it.\n\nExperimenting with this kind of writing is fun, bringing my work to life in a new way. I want to hint at a story without explaining it outright. One of the reasons I love collaging is that I can piece together unrelated elements and let them form meaning in unexpected ways. :-)"
+  },
+  {
+    "image": "/images/sea-cliffs.jpg",
+    "title": "Newfoundland’s Coast",
+    "year": "September 2025",
+    "size": "11 × 14 in",
+    "medium": "",
+    "sources": [],
+    "description": "My first experiment… interesting.",
     "featured": false
   }
 ]
