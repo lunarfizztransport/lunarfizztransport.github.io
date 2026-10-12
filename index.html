@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
 <style>
-/* Layout: product-page showcase. Frosted top bar, giant headline with one collage glowing in sunset light, a specs row, a tiled grid of work, then about. Deliberately dark-only. */
+/* Layout: product-page showcase in stark black and white, so the collages are the only color. Frosted top bar, giant headline with one featured collage, a specs row, a tiled grid of work, then about. Deliberately dark-only. */
 :root {
   --bg: #000000;
   --bg-2: #0D0D10;
@@ -17,9 +17,6 @@
   --ink: #F5F5F7;
   --muted: #8E8E95;
   --line: rgba(255, 255, 255, .09);
-  --blue: #86A8FF;
-  --orange: #FFA06E;
-  --sunset: linear-gradient(95deg, #86A8FF 0%, #C8A6E6 48%, #FFA06E 100%);
   --f: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Manrope", "Helvetica Neue", Arial, sans-serif;
   --radius: 28px;
   color-scheme: dark;
@@ -33,9 +30,9 @@ img { max-width: 100%; }
 [hidden] { display: none !important; }
 button { font: inherit; color: inherit; }
 a { color: inherit; }
-:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 6px; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 6px; }
 .wrap { max-width: 1120px; margin: 0 auto; padding-inline: clamp(16px, 4vw, 32px); }
-.grad { background: var(--sunset); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.grad { color: var(--muted); }
 
 /* Frosted nav */
 .nav { position: sticky; top: 0; z-index: 20; padding-top: env(safe-area-inset-top, 0px); background: rgba(0, 0, 0, .72); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--line); }
@@ -47,16 +44,15 @@ a { color: inherit; }
 
 /* Hero */
 .hero { padding-block: clamp(56px, 10vw, 120px) clamp(48px, 8vw, 96px); text-align: center; }
-.eyebrow { margin: 0 0 14px; font-size: clamp(15px, 1.6vw, 19px); font-weight: 600; color: var(--orange); }
+.eyebrow { margin: 0 0 14px; font-size: clamp(15px, 1.6vw, 19px); font-weight: 600; color: var(--muted); }
 .hero h1 { margin: 0 auto; max-width: 14ch; font-size: clamp(46px, 9vw, 112px); font-weight: 800; line-height: 1.02; letter-spacing: -.045em; text-wrap: balance; }
 .hero .sub { margin: 22px auto 0; max-width: 38ch; font-size: clamp(18px, 2vw, 22px); color: var(--muted); font-weight: 500; text-wrap: balance; }
 .ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px 28px; margin-top: 30px; }
 .pill { display: inline-flex; align-items: center; padding: 11px 22px; border-radius: 980px; background: var(--ink); color: #000; font-size: 16px; font-weight: 600; text-decoration: none; border: 0; cursor: pointer; transition: transform .2s; }
 .pill:hover { transform: scale(1.03); }
-.textlink { align-self: center; color: var(--blue); font-size: 17px; text-decoration: none; }
-.textlink:hover { text-decoration: underline; }
+.textlink { align-self: center; color: var(--ink); font-size: 17px; text-decoration: underline; text-decoration-color: var(--muted); text-underline-offset: 4px; }
+.textlink:hover { text-decoration-color: var(--ink); }
 .showcase { position: relative; display: block; width: min(560px, 86%); margin: clamp(48px, 8vw, 88px) auto 0; padding: 0; border: 0; background: none; cursor: zoom-in; }
-.showcase::before { content: ""; position: absolute; inset: 8% -6% -4%; background: var(--sunset); filter: blur(70px); opacity: .45; border-radius: 50%; z-index: 0; }
 .showcase img { position: relative; z-index: 1; display: block; width: 100%; height: auto; border-radius: 6px; box-shadow: 0 40px 80px -30px rgba(0, 0, 0, .9); }
 .showcase figcaption { position: relative; z-index: 1; margin-top: 22px; font-size: 14px; color: var(--muted); }
 
