@@ -1,39 +1,12 @@
 [
   {
-    "image": "/images/rome.jpg",
-    "title": "Strangers in Close Quarters",
-    "year": "May 2026",
-    "size": "6 × 9 in",
+    "image": "/images/sea-cliffs.jpg",
+    "title": "Newfoundland’s Coast",
+    "year": "September 2025",
+    "size": "11 × 14 in",
     "medium": "",
     "sources": [],
-    "description": ""
-  },
-  {
-    "image": "/images/americans.jpg",
-    "title": "Americans",
-    "year": "September 2026",
-    "size": "6 × 9 in",
-    "medium": "",
-    "sources": [],
-    "description": ""
-  },
-  {
-    "image": "/images/tv-diner.jpg",
-    "title": "TV Diner",
-    "year": "September 2026",
-    "size": "6 × 6 in",
-    "medium": "",
-    "sources": [],
-    "description": ""
-  },
-  {
-    "image": "/images/hike-to-kansas.jpg",
-    "title": "Hike to Kansas",
-    "year": "September 2026",
-    "size": "6 × 9 in",
-    "medium": "",
-    "sources": [],
-    "description": ""
+    "description": "My first experiment… interesting."
   },
   {
     "image": "/images/dragon-lake.jpg",
@@ -63,15 +36,6 @@
     "description": "Welcome to Blahdell."
   },
   {
-    "image": "/images/sea-cliffs.jpg",
-    "title": "Newfoundland’s Coast",
-    "year": "September 2025",
-    "size": "11 × 14 in",
-    "medium": "",
-    "sources": [],
-    "description": "My first experiment… interesting."
-  },
-  {
     "image": "/images/ice-terraces.jpg",
     "title": "Untitled",
     "year": "April 2026",
@@ -79,6 +43,42 @@
     "medium": "",
     "sources": [],
     "description": "This world shrinks into a speck."
+  },
+  {
+    "image": "/images/rome.jpg",
+    "title": "Strangers in Close Quarters",
+    "year": "May 2026",
+    "size": "6 × 9 in",
+    "medium": "",
+    "sources": [],
+    "description": ""
+  },
+  {
+    "image": "/images/hike-to-kansas.jpg",
+    "title": "Hike to Kansas",
+    "year": "September 2026",
+    "size": "6 × 9 in",
+    "medium": "",
+    "sources": [],
+    "description": ""
+  },
+  {
+    "image": "/images/tv-diner.jpg",
+    "title": "TV Diner",
+    "year": "September 2026",
+    "size": "6 × 6 in",
+    "medium": "",
+    "sources": [],
+    "description": ""
+  },
+  {
+    "image": "/images/americans.jpg",
+    "title": "Americans",
+    "year": "September 2026",
+    "size": "6 × 9 in",
+    "medium": "",
+    "sources": [],
+    "description": ""
   },
   {
     "image": "/images/red-car.jpg",
