@@ -420,7 +420,7 @@ const RAIL = 6;
 const canvas = document.getElementById('table');
 const ctx = canvas.getContext('2d');
 const $ = id => document.getElementById(id);
-const COLORS = { 1: '#ffd21f', 2: '#1846e0', 3: '#ee1c25', 4: '#7b2fd1', 5: '#ff7a00', 6: '#00a651', 7: '#a8172f', 8: '#121212' };
+const COLORS = { 1: '#ffd21f', 2: '#1846e0', 3: '#ee1c25', 4: '#ff4fa8', 5: '#ff7a00', 6: '#00a651', 7: '#7b4a22', 8: '#121212' };
 const ballColor = id => id === 0 ? '#f6f3e8' : COLORS[id > 8 ? id - 8 : id];
 const pct = p => Math.round(p * 100) + '%';
 const toneOf = p => p >= 0.65 ? 'g' : p >= 0.4 ? 'w' : 'b';
