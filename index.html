@@ -109,6 +109,20 @@ button { font: inherit; color: inherit; }
 .story-note { font-family: var(--f-label); font-size: 19px; color: var(--ink-soft); margin-top: -6px; }
 .tagline { font-family: var(--f-label); font-size: 21px; line-height: 1.2; color: var(--ink-soft); }
 
+/* Vigenère cipher window */
+.cipher { display: grid; gap: 14px; padding: 18px 20px; }
+.cipher .lbl { display: block; margin-bottom: 4px; font-family: var(--f-label); font-size: 19px; line-height: 1.1; }
+.cipher input, .cipher textarea { display: block; width: 100%; padding: 6px 8px; border: 2px solid; border-color: var(--chrome-lo) var(--chrome) var(--chrome) var(--chrome-lo); border-radius: 0; background: var(--well); color: var(--ink); font: 15px/1.5 var(--f-text); resize: vertical; }
+.cipher textarea { min-height: 84px; }
+.cipher textarea[readonly] { background: #F2F2F2; }
+.cipher .modes { display: flex; flex-wrap: wrap; gap: 6px; }
+.cipher .modes .btn[aria-pressed="true"] { border-color: var(--chrome-dk) var(--chrome-hi) var(--chrome-hi) var(--chrome-dk); box-shadow: inset 1px 1px 0 var(--chrome-lo); background: #DCDCDC; }
+.cipher .row { display: flex; flex-wrap: wrap; gap: 8px; }
+.cipher .hint { margin: 4px 0 0; font-size: 13px; color: var(--ink-soft); }
+.cipher .err { margin: 4px 0 0; font-size: 13px; color: #B3261E; }
+.lineup { margin: 0; max-height: 180px; overflow: auto; padding: 8px 10px; background: #000; color: #5BE37D; font: 14px/1.35 var(--f-text); white-space: pre; }
+.lineup .k { color: #E9C46A; }
+
 /* Taskbar */
 .taskbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 9999; display: flex; align-items: center; gap: 6px; height: calc(var(--taskbar) + env(safe-area-inset-bottom, 0px)); padding: 4px 6px calc(4px + env(safe-area-inset-bottom, 0px)); border-top: 2px solid var(--chrome-hi); background: var(--chrome); }
 .taskbar .start { font-family: var(--f-pixel); font-size: 13px; padding: 5px 10px; }
@@ -158,6 +172,10 @@ a, button, .btn, .icon, .file, .task, .win .ctl, .win .bar, [data-open] { cursor
     <button type="button" class="icon" role="listitem" data-open="w-drums">
       <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="6" width="10" height="7" fill="#D1495B"/><rect x="3" y="5" width="10" height="2" fill="#F2F2F2"/><rect x="3" y="12" width="10" height="1" fill="#8E2433"/><rect x="5" y="8" width="1" height="4" fill="#E8E8E8"/><rect x="10" y="8" width="1" height="4" fill="#E8E8E8"/><rect x="2" y="1" width="1" height="1" fill="#E9C46A"/><rect x="3" y="2" width="1" height="1" fill="#E9C46A"/><rect x="4" y="3" width="1" height="1" fill="#E9C46A"/><rect x="13" y="1" width="1" height="1" fill="#E9C46A"/><rect x="12" y="2" width="1" height="1" fill="#E9C46A"/><rect x="11" y="3" width="1" height="1" fill="#E9C46A"/></svg>
       <span>Drum Groove Tool</span>
+    </button>
+    <button type="button" class="icon" role="listitem" data-open="w-vigenere">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="5" y="1" width="6" height="1" fill="#BDBDBD"/><rect x="4" y="2" width="1" height="5" fill="#BDBDBD"/><rect x="11" y="2" width="1" height="5" fill="#BDBDBD"/><rect x="3" y="7" width="10" height="8" fill="#E9C46A"/><rect x="3" y="14" width="10" height="1" fill="#B88A2A"/><rect x="7" y="9" width="2" height="2" fill="#0A0A0A"/><rect x="7" y="11" width="2" height="2" fill="#0A0A0A"/></svg>
+      <span>Vigenère Cipher</span>
     </button>
     <button type="button" class="icon" role="listitem" data-open="w-about">
       <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="1" width="10" height="14" fill="#F2F2F2"/><rect x="10" y="1" width="3" height="3" fill="#BDBDBD"/><rect x="5" y="5" width="6" height="1" fill="#555"/><rect x="5" y="7" width="6" height="1" fill="#555"/><rect x="5" y="9" width="6" height="1" fill="#555"/><rect x="5" y="11" width="4" height="1" fill="#555"/></svg>
@@ -239,6 +257,43 @@ a, button, .btn, .icon, .file, .task, .win .ctl, .win .bar, [data-open] { cursor
   </div>
 </section>
 
+<!-- Vigenère cipher -->
+<section class="win raised" id="w-vigenere" data-title="Vigenère Cipher" style="left:280px; top:50px; width:min(620px, calc(100vw - 310px)); height:min(640px, calc(100vh - 100px));" hidden>
+  <div class="bar"><h2>Vigenère Cipher</h2><button type="button" class="ctl raised" data-min aria-label="Minimize">_</button><button type="button" class="ctl raised max-btn" data-max aria-label="Maximize">□</button><button type="button" class="ctl raised" data-close aria-label="Close">×</button></div>
+  <div class="body sunken">
+    <div class="cipher">
+      <div class="modes" role="group" aria-label="Mode">
+        <button type="button" class="btn raised" id="vg-enc" aria-pressed="true">Encrypt</button>
+        <button type="button" class="btn raised" id="vg-dec" aria-pressed="false">Decrypt</button>
+      </div>
+      <div>
+        <label class="lbl" for="vg-key">Key</label>
+        <input id="vg-key" type="text" value="LEMON" autocomplete="off" autocapitalize="characters" spellcheck="false">
+        <p class="err" id="vg-err" hidden>Add a key with at least one letter.</p>
+      </div>
+      <div>
+        <label class="lbl" for="vg-in" id="vg-in-lbl">Message</label>
+        <textarea id="vg-in" spellcheck="false">ATTACK AT DAWN</textarea>
+      </div>
+      <div>
+        <label class="lbl" for="vg-out" id="vg-out-lbl">Encrypted</label>
+        <textarea id="vg-out" readonly></textarea>
+        <div class="row" style="margin-top:8px">
+          <button type="button" class="btn raised" id="vg-copy">Copy result</button>
+          <button type="button" class="btn raised" id="vg-swap">Use result as message ⇅</button>
+          <button type="button" class="btn raised" id="vg-clear">Clear</button>
+        </div>
+      </div>
+      <div>
+        <span class="lbl">How the key lines up</span>
+        <pre class="lineup" id="vg-lineup" aria-label="Each letter of the message with the key letter used on it"></pre>
+        <p class="hint">Each letter shifts forward (or back, to decrypt) by its key letter: A = 0, B = 1 … Z = 25. Spaces, numbers and punctuation stay as they are and don't use up the key. Capital and lowercase letters are kept. Everything runs in your browser; nothing is sent anywhere.</p>
+      </div>
+    </div>
+  </div>
+  <div class="status sunken"><span id="vg-status"></span><span>Classic Vigenère, A–Z</span></div>
+</section>
+
 <!-- Story -->
 <section class="win raised" id="w-story" data-title="Story.txt" style="left:260px; top:70px; width:min(600px, calc(100vw - 290px)); height:min(560px, calc(100vh - 120px));" hidden>
   <div class="bar"><h2 id="story-bar">Story.txt</h2><button type="button" class="ctl raised" data-min aria-label="Minimize">_</button><button type="button" class="ctl raised max-btn" data-max aria-label="Maximize">□</button><button type="button" class="ctl raised" data-close aria-label="Close">×</button></div>
@@ -263,6 +318,7 @@ a, button, .btn, .icon, .file, .task, .win .ctl, .win .bar, [data-open] { cursor
       <ul>
         <li><strong>Collages:</strong> hand-cut paper pieces made from old magazines and stray photos.<span id="about-stories" hidden> Some are paired with short stories and poems I wrote.</span></li>
         <li><strong>Drum Groove Tool:</strong> a practice tool I built while learning drums. It listens to my playing and shows how my timing sits.</li>
+        <li><strong>Vigenère Cipher:</strong> encrypt and decrypt messages with a classic 16th-century cipher, right in the browser.</li>
         <li>More side projects as I make them.</li>
       </ul>
       <p>Say hi on Instagram at <a class="ig-link" href="https://www.instagram.com/lunarfizztransport/" target="_blank" rel="noopener">@lunarfizztransport</a>, or see my code on <a href="https://github.com/lunarfizztransport" target="_blank" rel="noopener">GitHub</a>.</p>
@@ -275,6 +331,7 @@ a, button, .btn, .icon, .file, .task, .win .ctl, .win .bar, [data-open] { cursor
   <ul>
     <li><button type="button" class="item" role="menuitem" data-open="w-collages">Collages</button></li>
     <li><button type="button" class="item" role="menuitem" data-open="w-drums">Drum Groove Tool</button></li>
+    <li><button type="button" class="item" role="menuitem" data-open="w-vigenere">Vigenère Cipher</button></li>
     <li><button type="button" class="item" role="menuitem" data-open="w-about">About.txt</button></li>
     <li><hr></li>
     <li><a class="item" id="ig-menu" role="menuitem" href="https://www.instagram.com/lunarfizztransport/" target="_blank" rel="noopener">Instagram ↗</a></li>
@@ -293,7 +350,8 @@ a, button, .btn, .icon, .file, .task, .win .ctl, .win .bar, [data-open] { cursor
    Collages and settings load from data/pieces.json and data/site.json
    (edit them at app.pagescms.org). The "featured" collage goes first.
    To add a side project: copy the Drum Groove Tool <section>, give it a
-   new id, and add a desktop icon with data-open="<that id>".
+   new id, and add a desktop icon with data-open="<that id>" (plus a Start
+   menu item and an entry in the hash map in start() for a direct link).
 ------------------------------------------------------------------- */
 const $ = id => document.getElementById(id);
 let SITE = { name: "Richelle Guice", instagram: "lunarfizztransport" };
@@ -424,11 +482,65 @@ document.addEventListener("keydown", e => {
   if (e.key === "Escape") closeWin(v);
 });
 
+/* ---------------- Vigenère cipher ---------------- */
+// Shifts each A–Z letter by the matching key letter (A = 0 … Z = 25). Other
+// characters pass through and don't advance the key. Case is preserved.
+function vigenere(text, key, decrypt) {
+  const k = key.toUpperCase().replace(/[^A-Z]/g, "");
+  if (!k) return null;
+  let j = 0, out = "", ks = "";
+  for (const ch of text) {
+    const c = ch.charCodeAt(0), up = c >= 65 && c <= 90, lo = c >= 97 && c <= 122;
+    if (!up && !lo) { out += ch; ks += ch === "\n" ? "\n" : " "; continue; }
+    const base = up ? 65 : 97, shift = k.charCodeAt(j % k.length) - 65;
+    out += String.fromCharCode((c - base + (decrypt ? 26 - shift : shift)) % 26 + base);
+    ks += up ? k[j % k.length] : k[j % k.length].toLowerCase(); j++;
+  }
+  return { out, ks, n: j };
+}
+let vgDecrypt = false;
+function vgRun() {
+  const text = $("vg-in").value, r = vigenere(text, $("vg-key").value, vgDecrypt);
+  $("vg-err").hidden = !!r || !$("vg-key").value.length && !text.length;
+  $("vg-out").value = r ? r.out : "";
+  $("vg-in-lbl").textContent = vgDecrypt ? "Encrypted message" : "Message";
+  $("vg-out-lbl").textContent = vgDecrypt ? "Decrypted" : "Encrypted";
+  const pre = $("vg-lineup"); pre.textContent = "";
+  if (r && text) {
+    const tl = [...text].join("").split("\n"), kl = r.ks.split("\n");
+    tl.forEach((line, i) => {
+      pre.append(line + "\n");
+      const k = document.createElement("span"); k.className = "k"; k.textContent = kl[i] + (i < tl.length - 1 ? "\n\n" : "");
+      pre.append(k);
+    });
+  }
+  const kLen = $("vg-key").value.toUpperCase().replace(/[^A-Z]/g, "").length;
+  $("vg-status").textContent = r ? `Key: ${kLen} letter${kLen === 1 ? "" : "s"} · ${r.n} letter${r.n === 1 ? "" : "s"} ${vgDecrypt ? "decrypted" : "encrypted"}` : "Waiting for a key";
+}
+function vgMode(dec) {
+  vgDecrypt = dec;
+  $("vg-enc").setAttribute("aria-pressed", String(!dec)); $("vg-dec").setAttribute("aria-pressed", String(dec));
+  vgRun();
+}
+$("vg-enc").onclick = () => vgMode(false);
+$("vg-dec").onclick = () => vgMode(true);
+$("vg-key").addEventListener("input", vgRun);
+$("vg-in").addEventListener("input", vgRun);
+$("vg-swap").onclick = () => { $("vg-in").value = $("vg-out").value; vgMode(!vgDecrypt); };
+$("vg-clear").onclick = () => { $("vg-in").value = ""; vgRun(); $("vg-in").focus(); };
+$("vg-copy").onclick = async () => {
+  const b = $("vg-copy"), out = $("vg-out");
+  try { await navigator.clipboard.writeText(out.value); b.textContent = "Copied"; }
+  catch (e) { out.focus(); out.select(); b.textContent = "Selected: press Cmd/Ctrl+C"; }
+  setTimeout(() => { b.textContent = "Copy result"; }, 1800);
+};
+vgRun();
+
 async function getJSON(path) {
   try { const r = await fetch(path + "?v=" + Date.now()); return r.ok ? await r.json() : null; } catch (e) { return null; }
 }
 (async function start() {
-  const map = { collages: "w-collages", drums: "w-drums", about: "w-about" };
+  const map = { collages: "w-collages", drums: "w-drums", vigenere: "w-vigenere", about: "w-about" };
   openWin(map[location.hash.slice(1)] || "w-collages");
   const [site, pieces] = await Promise.all([getJSON("data/site.json"), getJSON("data/pieces.json")]);
   if (site) {

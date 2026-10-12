@@ -19,11 +19,13 @@ screen with larger buttons, and the Start menu is the way to get around.
 |---|---|
 | **Collages** | A file browser of my collages. Click one to open it in a viewer with its date, size and description. Collages with a story or poem show a **Read the story / poem** button that opens the writing in its own text window. |
 | **Drum Groove Tool** | A practice tool I built while learning drums, with live demo pages it made from my own playing: how it learned my kit, a take analyzed, and the same take with AI coaching. |
+| **Vigenère Cipher** | Encrypt and decrypt text with the classic Vigenère cipher, live as you type. Shows how each key letter lines up with the message. Runs entirely in the browser. |
 | **About.txt** | What this site is about. |
 | **Instagram / GitHub** | Links out. |
 
 Direct links to a window: [#collages](https://lunarfizztransport.github.io/#collages),
 [#drums](https://lunarfizztransport.github.io/#drums),
+[#vigenere](https://lunarfizztransport.github.io/#vigenere),
 [#about](https://lunarfizztransport.github.io/#about).
 
 ## How it's built
