@@ -3,240 +3,343 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Richelle Guice Collages</title>
+<title>Richelle Guice Desktop</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen&family=VT323&family=IBM+Plex+Mono:wght@400;600&display=swap">
 <style>
-/* Layout: black masonry wall. A slim header, then every collage at its true shape in staggered columns; tap for full screen. The collages are the only color. Deliberately dark-only. */
+/* Layout: a late-90s computer desktop on black. Pixel icons down the left open bevelled grey windows (Collages, Drum Groove Tool, About); a taskbar along the bottom. On phones, windows open full screen. Deliberately one look, not themed. */
 :root {
-  --bg: #000000;
-  --ink: #F5F5F7;
-  --muted: #8E8E95;
-  --line: rgba(255, 255, 255, .1);
-  --f: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Manrope", "Helvetica Neue", Arial, sans-serif;
-  --gap: clamp(10px, 1.6vw, 18px);
-  color-scheme: dark;
+  --desk: #050505;
+  --desk-dot: #1A1A1A;
+  --chrome: #C6C6C6;
+  --chrome-hi: #FFFFFF;
+  --chrome-lo: #7B7B7B;
+  --chrome-dk: #0A0A0A;
+  --well: #FFFFFF;
+  --ink: #0A0A0A;
+  --ink-soft: #4A4A4A;
+  --title: #0A0A0A;
+  --title-ink: #FFFFFF;
+  --select: #1E3DD8;
+  --select-ink: #FFFFFF;
+  --icon-ink: #F2F2F2;
+
+  --f-pixel: "Silkscreen", "Courier New", monospace;
+  --f-label: "VT323", "Courier New", monospace;
+  --f-text: "IBM Plex Mono", "Courier New", monospace;
+  --taskbar: 40px;
+  color-scheme: light;
 }
 
 * { box-sizing: border-box; }
-html, body { margin: 0; }
-html { scroll-behavior: smooth; }
-body { background: var(--bg); color: var(--ink); font: 16px/1.55 var(--f); -webkit-font-smoothing: antialiased; }
+html, body { margin: 0; height: 100%; }
+body {
+  background-color: var(--desk);
+  background-image: radial-gradient(var(--desk-dot) 1px, transparent 1px);
+  background-size: 4px 4px;
+  color: var(--ink); font: 15px/1.55 var(--f-text); overflow: hidden;
+}
 img { max-width: 100%; }
 [hidden] { display: none !important; }
 button { font: inherit; color: inherit; }
-a { color: inherit; }
-:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
-.wrap { max-width: 1400px; margin: 0 auto; padding-inline: clamp(16px, 3vw, 40px); }
+:focus-visible { outline: 2px dotted var(--select); outline-offset: 2px; }
 
-/* Header */
-header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; padding-block: clamp(28px, 5vw, 56px) clamp(24px, 4vw, 40px); }
-header h1 { margin: 0; font-size: clamp(22px, 2.6vw, 30px); font-weight: 700; letter-spacing: -.02em; }
-header .tag { margin: 4px 0 0; font-size: 15px; color: var(--muted); }
-header nav { display: flex; gap: 24px; }
-header nav a { font-size: 14px; color: var(--muted); text-decoration: none; transition: color .2s; }
-header nav a:hover { color: var(--ink); }
+/* bevels */
+.raised { background: var(--chrome); border: 2px solid; border-color: var(--chrome-hi) var(--chrome-dk) var(--chrome-dk) var(--chrome-hi); box-shadow: inset -1px -1px 0 var(--chrome-lo); }
+.sunken { border: 2px solid; border-color: var(--chrome-lo) var(--chrome-hi) var(--chrome-hi) var(--chrome-lo); }
+.btn { padding: 4px 12px; font-family: var(--f-label); font-size: 20px; line-height: 1; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; color: var(--ink); }
+.btn:active { border-color: var(--chrome-dk) var(--chrome-hi) var(--chrome-hi) var(--chrome-dk); box-shadow: inset 1px 1px 0 var(--chrome-lo); }
 
-/* Masonry wall */
-.wall { display: flex; gap: var(--gap); align-items: flex-start; }
-.col { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: var(--gap); }
-.piece { position: relative; display: block; padding: 0; border: 0; background: #111; cursor: zoom-in; overflow: hidden; }
-.piece img { display: block; width: 100%; height: auto; transition: transform .6s cubic-bezier(.2, .7, .2, 1), opacity .4s; }
-.piece .cap { position: absolute; inset: auto 0 0 0; padding: 40px 14px 12px; background: linear-gradient(transparent, rgba(0, 0, 0, .75)); text-align: left; font-size: 14px; opacity: 0; transition: opacity .25s; }
-.piece .cap span { color: rgba(255, 255, 255, .7); }
-.piece:hover img { transform: scale(1.02); }
-.piece:hover .cap, .piece:focus-visible .cap { opacity: 1; }
-.status { padding-block: 40px; color: var(--muted); }
+/* Desktop + icons */
+.desktop { position: fixed; inset: 0 0 var(--taskbar) 0; padding: 20px 16px; }
+.icons { display: flex; flex-direction: column; flex-wrap: wrap; align-content: flex-start; gap: 18px; height: 100%; width: max-content; }
+.icon { display: flex; flex-direction: column; align-items: center; gap: 6px; width: 92px; padding: 4px; border: 0; background: none; cursor: pointer; text-decoration: none; color: var(--icon-ink); }
+.icon svg { width: 48px; height: 48px; shape-rendering: crispEdges; image-rendering: pixelated; }
+.icon span { padding: 0 4px; font-family: var(--f-label); font-size: 19px; line-height: 1.05; text-align: center; }
+.icon:hover span, .icon:focus-visible span { background: var(--select); color: var(--select-ink); }
+.icon:focus-visible { outline: none; }
 
-/* About */
-.about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 16px 48px; margin-top: clamp(72px, 10vw, 120px); padding-block: 40px 0; border-top: 1px solid var(--line); }
-.about h2 { margin: 0; font-size: 14px; font-weight: 600; color: var(--muted); }
-.about p { margin: 0 0 16px; max-width: 60ch; font-size: clamp(17px, 1.6vw, 19px); }
-.about a { text-decoration: underline; text-decoration-color: var(--muted); text-underline-offset: 4px; }
-.about a:hover { text-decoration-color: var(--ink); }
-@media (max-width: 700px) { .about { grid-template-columns: 1fr; } }
+/* Windows */
+.win { position: fixed; display: flex; flex-direction: column; min-width: 280px; max-width: calc(100vw - 16px); max-height: calc(100vh - var(--taskbar) - 16px); box-shadow: 4px 4px 0 rgba(0,0,0,.6); }
+.win .bar { display: flex; align-items: center; gap: 8px; height: 30px; padding: 0 4px 0 8px; background: repeating-linear-gradient(var(--title) 0 2px, #2B2B2B 2px 3px); color: var(--title-ink); cursor: grab; user-select: none; touch-action: none; }
+.win.inactive .bar { background: var(--chrome-lo); }
+.win .bar h2 { flex: 1; min-width: 0; margin: 0; font-family: var(--f-pixel); font-size: 13px; font-weight: 400; letter-spacing: .04em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.win .ctl { width: 22px; height: 20px; padding: 0; display: inline-flex; align-items: center; justify-content: center; font-family: var(--f-pixel); font-size: 11px; line-height: 1; cursor: pointer; color: var(--ink); }
+.win .body { flex: 1; min-height: 0; overflow: auto; margin: 4px; background: var(--well); }
+.win .status { display: flex; justify-content: space-between; gap: 12px; margin: 0 4px 4px; padding: 2px 8px; font-family: var(--f-label); font-size: 17px; color: var(--ink-soft); }
+.win.max { left: 0 !important; top: 0 !important; width: 100vw !important; height: calc(100vh - var(--taskbar)) !important; max-height: none; max-width: none; }
 
-footer { padding-block: 56px 32px; font-size: 12px; color: var(--muted); }
+/* Collages window: file browser */
+.files { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 18px 14px; padding: 16px; }
+.file { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 6px; border: 0; background: none; cursor: pointer; text-align: center; }
+.file .thumb { display: flex; align-items: center; justify-content: center; width: 100%; aspect-ratio: 1; background: #111; padding: 6px; }
+.file img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.file span { padding: 0 3px; font-family: var(--f-label); font-size: 18px; line-height: 1.05; }
+.file:hover span, .file:focus-visible span { background: var(--select); color: var(--select-ink); }
+.file:focus-visible { outline: none; }
 
-/* Viewer */
-dialog { width: 100vw; height: 100vh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: rgba(0, 0, 0, .96); color: var(--ink); }
-dialog::backdrop { background: transparent; }
-.viewer { display: grid; grid-template-columns: minmax(0, 1fr) 320px; height: 100%; }
-.v-stage { display: flex; align-items: center; justify-content: center; min-height: 0; padding: clamp(56px, 5vw, 64px) clamp(16px, 3vw, 48px); }
-.v-stage img { max-height: 100%; max-width: 100%; width: auto; object-fit: contain; }
-.v-info { display: flex; flex-direction: column; gap: 20px; padding: 72px 28px 28px; overflow: auto; }
-.v-info h2 { margin: 0; font-size: 24px; font-weight: 700; letter-spacing: -.02em; line-height: 1.15; text-wrap: balance; }
-.v-info .meta { margin: 6px 0 0; color: var(--muted); font-size: 15px; }
-.v-info .desc { margin: 0; font-size: 16px; line-height: 1.6; white-space: pre-line; }
-.v-info dl { margin: 0; font-size: 14px; }
-.v-info dl div { display: grid; grid-template-columns: 80px 1fr; gap: 12px; padding: 10px 0; border-top: 1px solid var(--line); }
-.v-info dt { color: var(--muted); }
-.v-info dd { margin: 0; white-space: pre-line; }
-.v-nav { display: flex; align-items: center; gap: 10px; margin-top: auto; color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
-.round { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; border: 0; background: rgba(255, 255, 255, .12); color: var(--ink); font-size: 18px; cursor: pointer; transition: background .2s; }
-.round:hover { background: rgba(255, 255, 255, .22); }
-.v-close { position: absolute; top: calc(16px + env(safe-area-inset-top, 0px)); right: 16px; z-index: 2; }
-@media (max-width: 820px) {
+/* Viewer window */
+.viewer { display: grid; grid-template-columns: minmax(0, 1fr) 260px; height: 100%; background: #000; }
+.v-stage { display: flex; align-items: center; justify-content: center; min-height: 0; padding: 16px; }
+.v-stage img { max-height: 100%; max-width: 100%; object-fit: contain; }
+.v-info { display: flex; flex-direction: column; gap: 14px; padding: 16px; background: var(--well); overflow: auto; }
+.v-info h3 { margin: 0; font-family: var(--f-pixel); font-size: 15px; font-weight: 400; line-height: 1.3; }
+.v-info p { margin: 0; }
+.v-info .meta { font-family: var(--f-label); font-size: 19px; color: var(--ink-soft); }
+.v-info .desc { white-space: pre-line; }
+.v-nav { display: flex; gap: 8px; margin-top: auto; }
+@media (max-width: 760px) {
   .viewer { grid-template-columns: 1fr; grid-template-rows: minmax(0, 1fr) auto; }
-  .v-stage { padding: 64px 12px 12px; }
-  .v-info { padding: 16px 16px calc(20px + env(safe-area-inset-bottom, 0px)); max-height: 40vh; }
-  .v-info h2 { font-size: 20px; }
+  .v-info { max-height: 38vh; }
 }
 
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+/* Text windows */
+.doc { max-width: 62ch; padding: 20px 22px; }
+.doc h3 { margin: 0 0 10px; font-family: var(--f-pixel); font-size: 18px; font-weight: 400; line-height: 1.3; }
+.doc p { margin: 0 0 14px; }
+.doc ul { margin: 0 0 14px; padding-left: 20px; }
+.doc .row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+.doc a:not(.btn) { color: var(--select); }
+.video { display: flex; align-items: center; justify-content: center; aspect-ratio: 16 / 9; max-width: 100%; margin: 4px 0 16px; background: #000; color: #9A9A9A; font-family: var(--f-label); font-size: 22px; text-align: center; padding: 12px; }
+.tagline { font-family: var(--f-label); font-size: 21px; line-height: 1.2; color: var(--ink-soft); }
+
+/* Taskbar */
+.taskbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 9999; display: flex; align-items: center; gap: 6px; height: calc(var(--taskbar) + env(safe-area-inset-bottom, 0px)); padding: 4px 6px calc(4px + env(safe-area-inset-bottom, 0px)); border-top: 2px solid var(--chrome-hi); background: var(--chrome); }
+.taskbar .start { font-family: var(--f-pixel); font-size: 13px; padding: 5px 10px; }
+.tasks { flex: 1; min-width: 0; display: flex; gap: 6px; overflow-x: auto; }
+.task { flex: 0 1 170px; min-width: 70px; padding: 5px 8px; font-family: var(--f-label); font-size: 18px; text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer; }
+.task.on { border-color: var(--chrome-dk) var(--chrome-hi) var(--chrome-hi) var(--chrome-dk); background: #DCDCDC; }
+.clock { padding: 4px 10px; font-family: var(--f-label); font-size: 19px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* Phones: windows fill the screen */
+@media (max-width: 700px) {
+  .win { left: 0 !important; top: 0 !important; width: 100vw !important; height: calc(100% - var(--taskbar) - env(safe-area-inset-bottom, 0px)) !important; max-height: none; max-width: none; min-width: 0; box-shadow: none; }
+  .win .bar { cursor: default; }
+  .win .ctl.max-btn { display: none; }
+  .icons { flex-direction: row; width: auto; height: auto; }
+  .clock { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 </head>
 <body>
 
-<div class="wrap">
-  <header>
-    <div>
-      <h1 id="name">Richelle Guice</h1>
-      <p class="tag">Hand-cut collage from vintage National Geographics and whatever else the world turns up.</p>
-    </div>
-    <nav aria-label="Main">
-      <a href="#about">About</a>
-      <a id="ig-nav" href="https://www.instagram.com/lunarfizztransport/" target="_blank" rel="noopener">Instagram</a>
-    </nav>
-  </header>
-
-  <main>
-    <div class="wall" id="wall" aria-label="Collages"></div>
-    <p class="status" id="status" hidden>Couldn't load the collages. Refresh the page to try again.</p>
-
-    <section class="about" id="about">
-      <h2>About</h2>
-      <div>
-        <p>I'm <span id="about-name">Richelle Guice</span>. Sometimes I go into a collage with an idea. Other times I see something that calls to me, and a strong idea forms from there.</p>
-        <p>Then I go digging through random scraps: old National Geographics, stray photos, whatever paper I've got. None of it was meant to go together, and the fun part is getting unrelated images to mean something in a weird, fantastical way. Stuff changes along the way, with lots of redoing and undoing. But the idea stays, and that's where the inspiration comes from.</p>
-        <p>Prints and commissions are open. Send me a message on Instagram at <a id="ig-about" href="https://www.instagram.com/lunarfizztransport/" target="_blank" rel="noopener">@lunarfizztransport</a></p>
-      </div>
-    </section>
-  </main>
-
-  <footer id="copy"></footer>
+<div class="desktop">
+  <div class="icons" role="list">
+    <button type="button" class="icon" role="listitem" data-open="w-collages">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1" y="3" width="6" height="2" fill="#E9C46A"/><rect x="1" y="4" width="14" height="10" fill="#E9C46A"/><rect x="1" y="6" width="14" height="1" fill="#B88A2A"/><rect x="3" y="8" width="4" height="4" fill="#3E7CB1"/><rect x="7" y="9" width="5" height="3" fill="#D1495B"/><rect x="1" y="13" width="14" height="1" fill="#8A6418"/></svg>
+      <span>Collages</span>
+    </button>
+    <button type="button" class="icon" role="listitem" data-open="w-drums">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="6" width="10" height="7" fill="#D1495B"/><rect x="3" y="5" width="10" height="2" fill="#F2F2F2"/><rect x="3" y="12" width="10" height="1" fill="#8E2433"/><rect x="5" y="8" width="1" height="4" fill="#E8E8E8"/><rect x="10" y="8" width="1" height="4" fill="#E8E8E8"/><rect x="2" y="1" width="1" height="1" fill="#E9C46A"/><rect x="3" y="2" width="1" height="1" fill="#E9C46A"/><rect x="4" y="3" width="1" height="1" fill="#E9C46A"/><rect x="13" y="1" width="1" height="1" fill="#E9C46A"/><rect x="12" y="2" width="1" height="1" fill="#E9C46A"/><rect x="11" y="3" width="1" height="1" fill="#E9C46A"/></svg>
+      <span>Drum Groove Tool</span>
+    </button>
+    <button type="button" class="icon" role="listitem" data-open="w-about">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="1" width="10" height="14" fill="#F2F2F2"/><rect x="10" y="1" width="3" height="3" fill="#BDBDBD"/><rect x="5" y="5" width="6" height="1" fill="#555"/><rect x="5" y="7" width="6" height="1" fill="#555"/><rect x="5" y="9" width="6" height="1" fill="#555"/><rect x="5" y="11" width="4" height="1" fill="#555"/></svg>
+      <span>About.txt</span>
+    </button>
+    <a class="icon" role="listitem" id="ig-icon" href="https://www.instagram.com/lunarfizztransport/" target="_blank" rel="noopener">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="2" y="4" width="12" height="9" fill="#BDBDBD"/><rect x="5" y="3" width="4" height="1" fill="#BDBDBD"/><rect x="5" y="6" width="6" height="6" fill="#222"/><rect x="6" y="7" width="4" height="4" fill="#3E7CB1"/><rect x="11" y="5" width="2" height="1" fill="#D1495B"/></svg>
+      <span>Instagram</span>
+    </a>
+    <a class="icon" role="listitem" href="https://github.com/lunarfizztransport" target="_blank" rel="noopener">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="1" y="2" width="14" height="10" fill="#BDBDBD"/><rect x="2" y="3" width="12" height="8" fill="#0A3B1F"/><rect x="3" y="5" width="1" height="1" fill="#5BE37D"/><rect x="4" y="6" width="1" height="1" fill="#5BE37D"/><rect x="3" y="7" width="1" height="1" fill="#5BE37D"/><rect x="6" y="7" width="3" height="1" fill="#5BE37D"/><rect x="5" y="12" width="6" height="1" fill="#7B7B7B"/><rect x="3" y="13" width="10" height="1" fill="#BDBDBD"/></svg>
+      <span>GitHub</span>
+    </a>
+  </div>
 </div>
 
-<dialog id="viewer" aria-label="Collage detail">
-  <button type="button" class="round v-close" id="v-close" aria-label="Close">✕</button>
-  <div class="viewer">
-    <div class="v-stage"><img id="v-img" alt=""></div>
-    <div class="v-info">
-      <div>
-        <h2 id="v-title"></h2>
+<!-- Collages -->
+<section class="win raised" id="w-collages" data-title="Collages" style="left:140px; top:24px; width:min(860px, calc(100vw - 170px)); height:min(640px, calc(100vh - 90px));" hidden>
+  <div class="bar"><h2>Collages</h2><button type="button" class="ctl raised" data-min aria-label="Minimize">_</button><button type="button" class="ctl raised max-btn" data-max aria-label="Maximize">□</button><button type="button" class="ctl raised" data-close aria-label="Close">×</button></div>
+  <div class="body sunken"><div class="files" id="files"></div><p class="doc" id="files-status" hidden>Couldn't load the collages. Refresh the page to try again.</p></div>
+  <div class="status sunken"><span id="files-count">Loading…</span><span>Hand-cut paper, photographed</span></div>
+</section>
+
+<!-- Viewer -->
+<section class="win raised" id="w-viewer" data-title="Viewer" style="left:200px; top:40px; width:min(980px, calc(100vw - 230px)); height:min(700px, calc(100vh - 100px));" hidden>
+  <div class="bar"><h2 id="v-bar">Viewer</h2><button type="button" class="ctl raised" data-min aria-label="Minimize">_</button><button type="button" class="ctl raised max-btn" data-max aria-label="Maximize">□</button><button type="button" class="ctl raised" data-close aria-label="Close">×</button></div>
+  <div class="body sunken">
+    <div class="viewer">
+      <div class="v-stage"><img id="v-img" alt=""></div>
+      <div class="v-info">
+        <h3 id="v-title"></h3>
         <p class="meta" id="v-meta"></p>
-      </div>
-      <p class="desc" id="v-desc" hidden></p>
-      <dl id="v-specs"></dl>
-      <div class="v-nav">
-        <button type="button" class="round" id="v-prev" aria-label="Previous piece">‹</button>
-        <button type="button" class="round" id="v-next" aria-label="Next piece">›</button>
-        <span id="v-count"></span>
+        <p class="desc" id="v-desc" hidden></p>
+        <div class="v-nav">
+          <button type="button" class="btn raised" id="v-prev">◀ Prev</button>
+          <button type="button" class="btn raised" id="v-next">Next ▶</button>
+        </div>
       </div>
     </div>
   </div>
-</dialog>
+</section>
+
+<!-- Drum tool -->
+<section class="win raised" id="w-drums" data-title="Drum Groove Tool" style="left:240px; top:60px; width:min(640px, calc(100vw - 270px)); height:min(620px, calc(100vh - 110px));" hidden>
+  <div class="bar"><h2>Drum Groove Tool</h2><button type="button" class="ctl raised" data-min aria-label="Minimize">_</button><button type="button" class="ctl raised max-btn" data-max aria-label="Maximize">□</button><button type="button" class="ctl raised" data-close aria-label="Close">×</button></div>
+  <div class="body sunken">
+    <div class="doc">
+      <h3>Drum Groove Tool</h3>
+      <p class="tagline">Record yourself playing drums, see exactly how your timing sits, and get coaching plus new grooves and fills in your style.</p>
+      <div class="video">Demo video coming soon</div>
+      <p>You play along to a click. The tool finds every hit and measures:</p>
+      <ul>
+        <li>whether you rush or drag</li>
+        <li>how consistent you are</li>
+        <li>which drum is early or late</li>
+        <li>how much you swing</li>
+      </ul>
+      <p>Then it gives feedback like a drum teacher would, with exercises and groove and fill ideas to learn from and make your own. Every idea comes as a MIDI file you can play in GarageBand.</p>
+      <p>It runs on your computer (Python) and works with a mic, phone recordings, or an electronic kit over USB.</p>
+      <div class="row"><a class="btn raised" href="https://github.com/lunarfizztransport/drum-groove-tool" target="_blank" rel="noopener">View the code on GitHub ▶</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section class="win raised" id="w-about" data-title="About.txt" style="left:300px; top:90px; width:min(560px, calc(100vw - 330px)); height:min(520px, calc(100vh - 140px));" hidden>
+  <div class="bar"><h2>About.txt</h2><button type="button" class="ctl raised" data-min aria-label="Minimize">_</button><button type="button" class="ctl raised max-btn" data-max aria-label="Maximize">□</button><button type="button" class="ctl raised" data-close aria-label="Close">×</button></div>
+  <div class="body sunken">
+    <div class="doc">
+      <h3 id="about-name">Richelle Guice</h3>
+      <p>This is where I keep my collages and side projects.</p>
+      <p>Sometimes I go into a collage with an idea. Other times I see something that calls to me, and a strong idea forms from there.</p>
+      <p>Then I go digging through random scraps: old National Geographics, stray photos, whatever paper I've got. None of it was meant to go together, and the fun part is getting unrelated images to mean something in a weird, fantastical way. Stuff changes along the way, with lots of redoing and undoing. But the idea stays, and that's where the inspiration comes from.</p>
+      <p>Prints and commissions are open. Message me on Instagram at <a id="ig-about" href="https://www.instagram.com/lunarfizztransport/" target="_blank" rel="noopener">@lunarfizztransport</a>.</p>
+    </div>
+  </div>
+</section>
+
+<nav class="taskbar" aria-label="Taskbar">
+  <button type="button" class="start btn raised" data-open="w-about" id="start">RG</button>
+  <div class="tasks" id="tasks"></div>
+  <div class="clock sunken" id="clock"></div>
+</nav>
 
 <script>
 /* ------------------------------------------------------------------
-   Your collages and settings live in data/pieces.json and data/site.json.
-   Edit them at app.pagescms.org (log in with GitHub). The collage marked
-   "featured" goes first (top left); the rest follow in list order.
+   Collages and settings load from data/pieces.json and data/site.json
+   (edit them at app.pagescms.org). The "featured" collage goes first.
+   To add a side project: copy the Drum Groove Tool <section>, give it a
+   new id, and add a desktop icon with data-open="<that id>".
 ------------------------------------------------------------------- */
+const $ = id => document.getElementById(id);
 let SITE = { name: "Richelle Guice", instagram: "lunarfizztransport" };
 let PIECES = [];
-const $ = id => document.getElementById(id);
+const phone = () => window.matchMedia("(max-width: 700px)").matches;
 
-function renderSite() {
-  const ig = "https://www.instagram.com/" + SITE.instagram + "/";
-  $("ig-nav").href = ig; $("ig-about").href = ig;
-  $("ig-about").textContent = "@" + SITE.instagram;
-  $("name").textContent = SITE.name;
-  $("about-name").textContent = SITE.name;
-  $("copy").textContent = `© ${new Date().getFullYear()} ${SITE.name}. All pieces are physical, cut-paper originals.`;
+/* ---------------- window manager ---------------- */
+let z = 10;
+function focusWin(w) {
+  document.querySelectorAll(".win").forEach(x => x.classList.toggle("inactive", x !== w));
+  w.style.zIndex = ++z;
+  renderTasks();
 }
-
-/* ---------------- masonry wall: each piece goes into the shortest column ---------------- */
-let tiles = [], cols = 0;
-function colsFor(w) { return w < 560 ? 2 : w < 1000 ? 3 : 4; }
-
-function buildTiles() {
-  tiles = PIECES.map((p, i) => {
+function openWin(id) {
+  const w = $(id); if (!w) return;
+  w.hidden = false; w.dataset.open = "1";
+  focusWin(w);
+  if (location.hash !== "#" + id.slice(2)) history.replaceState(null, "", "#" + id.slice(2));
+}
+function closeWin(w) { w.hidden = true; delete w.dataset.open; renderTasks(); }
+function minWin(w) { w.hidden = true; renderTasks(); }
+function renderTasks() {
+  const tasks = $("tasks"); tasks.innerHTML = "";
+  const top = [...document.querySelectorAll(".win")].filter(w => !w.hidden).sort((a, b) => b.style.zIndex - a.style.zIndex)[0];
+  document.querySelectorAll(".win[data-open]").forEach(w => {
     const b = document.createElement("button");
-    b.type = "button"; b.className = "piece";
-    b.setAttribute("aria-label", `${p.title || "Untitled"}. View full screen`);
-    b.innerHTML = `<img alt="" decoding="async"><div class="cap"><b></b> <span></span></div>`;
-    const img = b.querySelector("img");
-    img.alt = p.title || "";
-    img.loading = i < 8 ? "eager" : "lazy";
-    img.addEventListener("load", () => { p.ratio = img.naturalHeight / img.naturalWidth; layout(true); }, { once: true });
-    img.src = p.image;
-    b.querySelector("b").textContent = p.title || "Untitled";
-    b.querySelector("span").textContent = p.year || "";
+    b.type = "button"; b.className = "task btn raised" + (w === top ? " on" : "");
+    b.textContent = w.dataset.title;
+    b.onclick = () => { if (w.hidden) { w.hidden = false; focusWin(w); } else if (w === top) minWin(w); else focusWin(w); };
+    tasks.appendChild(b);
+  });
+}
+document.querySelectorAll("[data-open]").forEach(el => el.addEventListener("click", () => openWin(el.dataset.open)));
+document.querySelectorAll(".win").forEach(w => {
+  w.addEventListener("pointerdown", () => focusWin(w));
+  w.querySelector("[data-close]").onclick = e => { e.stopPropagation(); closeWin(w); };
+  w.querySelector("[data-min]").onclick = e => { e.stopPropagation(); minWin(w); };
+  w.querySelector("[data-max]").onclick = e => { e.stopPropagation(); w.classList.toggle("max"); };
+  const bar = w.querySelector(".bar");
+  bar.addEventListener("dblclick", () => { if (!phone()) w.classList.toggle("max"); });
+  let sx, sy, sl, st, drag = false;
+  bar.addEventListener("pointerdown", e => {
+    if (phone() || e.target.closest("button") || w.classList.contains("max")) return;
+    drag = true; sx = e.clientX; sy = e.clientY; sl = w.offsetLeft; st = w.offsetTop;
+    bar.setPointerCapture(e.pointerId); bar.style.cursor = "grabbing";
+  });
+  bar.addEventListener("pointermove", e => {
+    if (!drag) return;
+    const L = Math.min(window.innerWidth - 80, Math.max(80 - w.offsetWidth, sl + e.clientX - sx));
+    const T = Math.min(window.innerHeight - 80, Math.max(0, st + e.clientY - sy));
+    w.style.left = L + "px"; w.style.top = T + "px";
+  });
+  const end = () => { drag = false; bar.style.cursor = ""; };
+  bar.addEventListener("pointerup", end); bar.addEventListener("pointercancel", end);
+});
+
+/* ---------------- clock ---------------- */
+function tick() { $("clock").textContent = new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }); }
+tick(); setInterval(tick, 15000);
+
+/* ---------------- collages ---------------- */
+const src = p => String(p.image || "").replace(/^\//, "");
+function renderFiles() {
+  const box = $("files"); box.innerHTML = "";
+  PIECES.forEach((p, i) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "file";
+    b.innerHTML = `<div class="thumb"><img alt="" loading="lazy" decoding="async"></div><span></span>`;
+    b.querySelector("img").src = src(p); b.querySelector("img").alt = p.title || "";
+    b.querySelector("span").textContent = p.title || "Untitled";
     b.addEventListener("click", () => openViewer(i));
-    return b;
+    box.appendChild(b);
   });
-  layout(true);
+  $("files-count").textContent = `${PIECES.length} object${PIECES.length === 1 ? "" : "s"}`;
 }
-
-function layout(force) {
-  const wall = $("wall");
-  const n = colsFor(wall.clientWidth || window.innerWidth);
-  if (!force && n === cols) return;
-  cols = n;
-  const columns = Array.from({ length: n }, () => { const c = document.createElement("div"); c.className = "col"; return c; });
-  const heights = new Array(n).fill(0);
-  tiles.forEach((t, i) => {
-    const k = heights.indexOf(Math.min(...heights));
-    columns[k].appendChild(t);
-    heights[k] += (PIECES[i].ratio || 1) + .05;
-  });
-  wall.replaceChildren(...columns);
-}
-window.addEventListener("resize", () => layout(false));
-
-/* ---------------- viewer ---------------- */
-const dlg = $("viewer");
 let current = 0;
 function openViewer(i) {
   current = (i + PIECES.length) % PIECES.length;
   const p = PIECES[current];
-  $("v-img").src = p.image; $("v-img").alt = p.title || "";
+  $("v-img").src = src(p); $("v-img").alt = p.title || "";
   $("v-title").textContent = p.title || "Untitled";
+  $("v-bar").textContent = `Viewer: ${p.title || "Untitled"}`;
+  $("w-viewer").dataset.title = p.title || "Viewer";
   $("v-meta").textContent = [p.year, p.size].filter(Boolean).join(" · ");
   $("v-desc").textContent = p.description || ""; $("v-desc").hidden = !p.description;
-  const rows = [["Materials", p.medium], ["Cut from", (p.sources || []).filter(Boolean).join("\n")]].filter(r => r[1]);
-  const dl = $("v-specs"); dl.innerHTML = ""; dl.hidden = !rows.length;
-  rows.forEach(([k, v]) => {
-    const row = document.createElement("div"), dt = document.createElement("dt"), dd = document.createElement("dd");
-    dt.textContent = k; dd.textContent = v; row.append(dt, dd); dl.appendChild(row);
-  });
-  $("v-count").textContent = `${current + 1} / ${PIECES.length}`;
-  if (!dlg.open) dlg.showModal();
+  openWin("w-viewer");
 }
 $("v-prev").onclick = () => openViewer(current - 1);
 $("v-next").onclick = () => openViewer(current + 1);
-$("v-close").onclick = () => dlg.close();
-dlg.addEventListener("keydown", e => {
+document.addEventListener("keydown", e => {
+  const v = $("w-viewer");
+  if (v.hidden || v.classList.contains("inactive")) return;
   if (e.key === "ArrowLeft") openViewer(current - 1);
   if (e.key === "ArrowRight") openViewer(current + 1);
+  if (e.key === "Escape") closeWin(v);
 });
 
-/* ---------------- load data ---------------- */
 async function getJSON(path) {
   try { const r = await fetch(path + "?v=" + Date.now()); return r.ok ? await r.json() : null; } catch (e) { return null; }
 }
 (async function start() {
-  renderSite();
+  const map = { collages: "w-collages", drums: "w-drums", about: "w-about" };
+  openWin(map[location.hash.slice(1)] || "w-collages");
   const [site, pieces] = await Promise.all([getJSON("data/site.json"), getJSON("data/pieces.json")]);
-  if (site) { SITE = { ...SITE, ...site }; renderSite(); }
-  if (!Array.isArray(pieces)) { $("status").hidden = false; return; }
+  if (site) {
+    SITE = { ...SITE, ...site };
+    const ig = "https://www.instagram.com/" + SITE.instagram + "/";
+    $("ig-icon").href = ig; $("ig-about").href = ig; $("ig-about").textContent = "@" + SITE.instagram;
+    $("about-name").textContent = SITE.name;
+  }
+  if (!Array.isArray(pieces)) { $("files-status").hidden = false; $("files-count").textContent = "0 objects"; return; }
   const list = pieces.filter(p => p && p.image);
   const f = list.findIndex(p => p.featured);
   if (f > 0) list.unshift(...list.splice(f, 1));
   PIECES = list;
-  buildTiles();
+  renderFiles();
 })();
 </script>
 </body>
