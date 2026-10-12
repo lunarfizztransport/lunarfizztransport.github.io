@@ -117,8 +117,20 @@ button { font: inherit; color: inherit; }
 .task.on { border-color: var(--chrome-dk) var(--chrome-hi) var(--chrome-hi) var(--chrome-dk); background: #DCDCDC; }
 .clock { padding: 4px 10px; font-family: var(--f-label); font-size: 19px; font-variant-numeric: tabular-nums; white-space: nowrap; }
 
+/* Start menu: the RG button opens a list of every window and link */
+.start-menu { position: fixed; left: 6px; bottom: calc(var(--taskbar) + env(safe-area-inset-bottom, 0px) + 2px); z-index: 10000; display: flex; min-width: 240px; box-shadow: 4px 4px 0 rgba(0,0,0,.6); }
+.start-menu .brand { writing-mode: vertical-rl; transform: rotate(180deg); padding: 8px 5px; background: var(--title); color: var(--title-ink); font-family: var(--f-pixel); font-size: 11px; letter-spacing: .12em; }
+.start-menu ul { flex: 1; margin: 0; padding: 4px; list-style: none; }
+.start-menu .item { display: flex; align-items: center; width: 100%; padding: 10px 12px; border: 0; background: none; font-family: var(--f-label); font-size: 21px; line-height: 1.1; color: var(--ink); text-align: left; text-decoration: none; }
+.start-menu .item:hover, .start-menu .item:focus-visible { background: var(--select); color: var(--select-ink); outline: none; }
+.start-menu hr { margin: 4px 6px; border: 0; border-top: 1px solid var(--chrome-lo); border-bottom: 1px solid var(--chrome-hi); }
+.taskbar .start[aria-expanded="true"] { border-color: var(--chrome-dk) var(--chrome-hi) var(--chrome-hi) var(--chrome-dk); background: #DCDCDC; }
+
 /* Phones: windows fill the screen */
 @media (max-width: 700px) {
+  .win .bar { height: 42px; }
+  .win .ctl { width: 40px; height: 34px; font-size: 14px; }
+  .taskbar .start { padding: 6px 12px; }
   .win { left: 0 !important; top: 0 !important; width: 100vw !important; height: calc(100% - var(--taskbar) - env(safe-area-inset-bottom, 0px)) !important; max-height: none; max-width: none; min-width: 0; box-shadow: none; }
   .win .bar { cursor: default; }
   .win .ctl.max-btn { display: none; }
@@ -258,8 +270,20 @@ a, button, .btn, .icon, .file, .task, .win .ctl, .win .bar, [data-open] { cursor
   </div>
 </section>
 
+<div class="start-menu raised" id="start-menu" role="menu" hidden>
+  <div class="brand" aria-hidden="true">RICHELLE GUICE</div>
+  <ul>
+    <li><button type="button" class="item" role="menuitem" data-open="w-collages">Collages</button></li>
+    <li><button type="button" class="item" role="menuitem" data-open="w-drums">Drum Groove Tool</button></li>
+    <li><button type="button" class="item" role="menuitem" data-open="w-about">About.txt</button></li>
+    <li><hr></li>
+    <li><a class="item" id="ig-menu" role="menuitem" href="https://www.instagram.com/lunarfizztransport/" target="_blank" rel="noopener">Instagram ↗</a></li>
+    <li><a class="item" role="menuitem" href="https://github.com/lunarfizztransport" target="_blank" rel="noopener">GitHub ↗</a></li>
+  </ul>
+</div>
+
 <nav class="taskbar" aria-label="Taskbar">
-  <button type="button" class="start btn raised" data-open="w-about" id="start">RG</button>
+  <button type="button" class="start btn raised" id="start" aria-haspopup="menu" aria-expanded="false" aria-controls="start-menu">RG ▴</button>
   <div class="tasks" id="tasks"></div>
   <div class="clock sunken" id="clock"></div>
 </nav>
@@ -303,6 +327,14 @@ function renderTasks() {
   });
 }
 document.querySelectorAll("[data-open]").forEach(el => el.addEventListener("click", () => openWin(el.dataset.open)));
+
+/* ---------------- start menu ---------------- */
+const startBtn = $("start"), startMenu = $("start-menu");
+function setMenu(open) { startMenu.hidden = !open; startBtn.setAttribute("aria-expanded", String(open)); }
+startBtn.addEventListener("click", e => { e.stopPropagation(); setMenu(startMenu.hidden); });
+startMenu.addEventListener("click", e => { if (e.target.closest(".item")) setMenu(false); });
+document.addEventListener("click", e => { if (!startMenu.hidden && !startMenu.contains(e.target)) setMenu(false); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !startMenu.hidden) { setMenu(false); startBtn.focus(); } });
 document.querySelectorAll(".win").forEach(w => {
   w.addEventListener("pointerdown", () => focusWin(w));
   w.querySelector("[data-close]").onclick = e => { e.stopPropagation(); closeWin(w); };
@@ -390,7 +422,7 @@ async function getJSON(path) {
   if (site) {
     SITE = { ...SITE, ...site };
     const ig = "https://www.instagram.com/" + SITE.instagram + "/";
-    $("ig-icon").href = ig; document.querySelectorAll(".ig-link").forEach(a => { a.href = ig; a.textContent = "@" + SITE.instagram; });
+    $("ig-icon").href = ig; $("ig-menu").href = ig; document.querySelectorAll(".ig-link").forEach(a => { a.href = ig; a.textContent = "@" + SITE.instagram; });
     $("about-name").textContent = SITE.name;
   }
   if (!Array.isArray(pieces)) { $("files-status").hidden = false; $("files-count").textContent = "0 objects"; return; }
