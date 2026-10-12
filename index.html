@@ -391,7 +391,10 @@ function openWin(id) {
   focusWin(w);
   if (location.hash !== "#" + id.slice(2)) history.replaceState(null, "", "#" + id.slice(2));
 }
-function closeWin(w) { w.hidden = true; delete w.dataset.open; renderTasks(); }
+function closeWin(w) {
+  w.hidden = true; delete w.dataset.open; renderTasks();
+  if (location.hash === "#" + w.id.slice(2)) history.replaceState(null, "", location.pathname);
+}
 function minWin(w) { w.hidden = true; renderTasks(); }
 /* Taskbar buttons are updated in place, not rebuilt: iOS Safari ignores a tap
    if the page adds or removes elements as the finger lands. */
@@ -566,7 +569,8 @@ async function getJSON(path) {
 }
 (async function start() {
   const map = { collages: "w-collages", drums: "w-drums", vigenere: "w-vigenere", pool: "w-pool", about: "w-about" };
-  openWin(map[location.hash.slice(1)] || "w-collages");
+  // Open on a bare desktop; a direct link like #collages opens that window.
+  if (map[location.hash.slice(1)]) openWin(map[location.hash.slice(1)]);
   const [site, pieces] = await Promise.all([getJSON("data/site.json"), getJSON("data/pieces.json")]);
   if (site) {
     SITE = { ...SITE, ...site };
