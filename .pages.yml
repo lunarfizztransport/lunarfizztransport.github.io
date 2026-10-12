@@ -1,0 +1,47 @@
+media:
+  input: images
+  output: /images
+  categories: [image]
+
+content:
+  - name: pieces
+    label: Collages
+    type: file
+    path: data/pieces.json
+    format: json
+    list: true
+    fields:
+      - name: image
+        label: Photo
+        type: image
+        required: true
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: year
+        label: Year
+        type: number
+      - name: size
+        label: Size (e.g. 9 × 12 in)
+        type: string
+      - name: medium
+        label: Materials (e.g. Magazine paper on bristol board)
+        type: string
+      - name: sources
+        label: Cut from (one magazine per line)
+        type: string
+        list: true
+
+  - name: site
+    label: Site settings
+    type: file
+    path: data/site.json
+    format: json
+    fields:
+      - name: name
+        label: Your name
+        type: string
+      - name: instagram
+        label: Instagram handle (without the @)
+        type: string
