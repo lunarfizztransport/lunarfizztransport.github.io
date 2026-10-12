@@ -6,7 +6,8 @@
     "size": "11 × 14 in",
     "medium": "",
     "sources": [],
-    "description": "My first experiment… interesting."
+    "description": "My first experiment… interesting.",
+    "featured": false
   },
   {
     "image": "/images/dragon-lake.jpg",
@@ -15,7 +16,8 @@
     "size": "10.5 × 8 in",
     "medium": "",
     "sources": [],
-    "description": "In my underworld there is a red dragon."
+    "description": "In my underworld there is a red dragon.",
+    "featured": false
   },
   {
     "image": "/images/balloons.jpg",
@@ -24,7 +26,8 @@
     "size": "6 × 6 in",
     "medium": "",
     "sources": [],
-    "description": "I don’t believe in God but…"
+    "description": "I don’t believe in God but…",
+    "featured": false
   },
   {
     "image": "/images/redwoods.jpg",
@@ -33,7 +36,8 @@
     "size": "6 × 6 in",
     "medium": "",
     "sources": [],
-    "description": "Welcome to Blahdell."
+    "description": "Welcome to Blahdell.",
+    "featured": true
   },
   {
     "image": "/images/ice-terraces.jpg",
@@ -42,7 +46,8 @@
     "size": "5 × 16 in",
     "medium": "",
     "sources": [],
-    "description": "This world shrinks into a speck."
+    "description": "This world shrinks into a speck.",
+    "featured": false
   },
   {
     "image": "/images/rome.jpg",
@@ -51,7 +56,8 @@
     "size": "6 × 9 in",
     "medium": "",
     "sources": [],
-    "description": ""
+    "description": "",
+    "featured": false
   },
   {
     "image": "/images/hike-to-kansas.jpg",
@@ -60,7 +66,8 @@
     "size": "6 × 9 in",
     "medium": "",
     "sources": [],
-    "description": ""
+    "description": "",
+    "featured": false
   },
   {
     "image": "/images/tv-diner.jpg",
@@ -69,7 +76,8 @@
     "size": "6 × 6 in",
     "medium": "",
     "sources": [],
-    "description": ""
+    "description": "",
+    "featured": false
   },
   {
     "image": "/images/americans.jpg",
@@ -78,7 +86,8 @@
     "size": "6 × 9 in",
     "medium": "",
     "sources": [],
-    "description": ""
+    "description": "",
+    "featured": false
   },
   {
     "image": "/images/red-car.jpg",
@@ -87,6 +96,7 @@
     "year": "September 2026",
     "size": "6 × 8 in",
     "medium": "",
-    "sources": []
+    "sources": [],
+    "featured": false
   }
 ]

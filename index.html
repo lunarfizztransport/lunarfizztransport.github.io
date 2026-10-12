@@ -202,7 +202,7 @@ dialog::backdrop { background: transparent; }
 /* ------------------------------------------------------------------
    Your collages and settings live in data/pieces.json and data/site.json.
    Edit them at app.pagescms.org (log in with GitHub). The first collage
-   in the list is the big one at the top of the page.
+   marked "featured" is the big one at the top of the page.
    Until you add your own, the site shows the sample pieces below.
 ------------------------------------------------------------------- */
 let SITE = { name: "Richelle Guice", instagram: "lunarfizztransport" };
@@ -290,10 +290,11 @@ function renderSite() {
 function render() {
   PIECES.forEach((p, i) => { if (!p.src) p.src = p.image || makeArt(i + 1, p.w || 4, p.h || 5); });
 
-  const hero = PIECES[0];
+  const heroIndex = Math.max(0, PIECES.findIndex(p => p.featured));
+  const hero = PIECES[heroIndex];
   $("showcase-img").src = hero.src; $("showcase-img").alt = hero.title || "";
   $("showcase-cap").textContent = [hero.title, hero.year].filter(Boolean).join(", ") + (hero.sample ? " (sample)" : "");
-  $("showcase").onclick = () => openViewer(0);
+  $("showcase").onclick = () => openViewer(heroIndex);
 
   const mags = new Set(PIECES.flatMap(p => p.sources || []).filter(Boolean));
   const years = PIECES.map(p => Number((String(p.year || "").match(/\d{4}/) || [])[0])).filter(Boolean);

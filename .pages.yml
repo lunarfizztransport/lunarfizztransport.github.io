@@ -19,6 +19,9 @@ content:
         label: Title
         type: string
         required: true
+      - name: featured
+        label: Feature this one at the top of the site
+        type: boolean
       - name: description
         label: Description
         type: text
