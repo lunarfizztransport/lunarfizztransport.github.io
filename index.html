@@ -102,6 +102,7 @@ dialog::backdrop { background: transparent; }
 .v-info { display: flex; flex-direction: column; gap: 26px; padding: 72px 32px 32px; border-left: 1px solid var(--line); overflow: auto; }
 .v-info h2 { margin: 0; font-size: 32px; font-weight: 800; letter-spacing: -.035em; line-height: 1.08; text-wrap: balance; }
 .v-info .yr { margin: 6px 0 0; color: var(--muted); }
+.v-info .desc { margin: 0; font-size: 16px; line-height: 1.6; color: var(--ink); white-space: pre-line; }
 .v-info h3 { margin: 0 0 10px; font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
 .v-info dl { margin: 0; }
 .v-info dl div { display: grid; grid-template-columns: 84px 1fr; gap: 12px; padding: 11px 0; border-top: 1px solid var(--line); font-size: 15px; }
@@ -186,6 +187,7 @@ dialog::backdrop { background: transparent; }
         <h2 id="v-title"></h2>
         <p class="yr" id="v-year"></p>
       </div>
+      <p class="desc" id="v-desc" hidden></p>
       <div id="v-specs"></div>
       <div class="v-nav">
         <button type="button" class="round" id="v-prev" aria-label="Previous piece">‹</button>
@@ -333,6 +335,7 @@ function openViewer(i) {
   $("v-img").src = p.src; $("v-img").alt = p.title || "";
   $("v-title").textContent = p.title || "Untitled";
   $("v-year").textContent = [p.year, p.sample ? "Sample piece" : ""].filter(Boolean).join(" · ");
+  $("v-desc").textContent = p.description || ""; $("v-desc").hidden = !p.description;
   const rows = [["Size", p.size], ["Medium", p.medium], ["Cut from", (p.sources || []).filter(Boolean).join("\n")]].filter(r => r[1]);
   const box = $("v-specs"); box.innerHTML = "";
   if (rows.length) {
