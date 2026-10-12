@@ -106,6 +106,7 @@ button { font: inherit; color: inherit; }
 .doc.notes h4 { margin: 0 0 8px; font-family: var(--f-label); font-size: 19px; font-weight: 400; color: var(--ink); }
 .file .has-story { font-family: var(--f-label); font-size: 15px; color: var(--ink-soft); }
 .story-text { white-space: pre-line; }
+.story-note { font-family: var(--f-label); font-size: 19px; color: var(--ink-soft); margin-top: -6px; }
 .tagline { font-family: var(--f-label); font-size: 21px; line-height: 1.2; color: var(--ink-soft); }
 
 /* Taskbar */
@@ -171,7 +172,7 @@ a, button, .btn, .icon, .file, .task, .win .ctl, .win .bar, [data-open] { cursor
       <p>Sometimes I go into a collage with an idea. Other times I see something that calls to me, and a strong idea forms from there.</p>
       <p>Then I go digging through random scraps: old National Geographics, stray photos, whatever paper I've got. None of it was meant to go together, and the fun part is getting unrelated images to mean something in a weird, fantastical way. Stuff changes along the way, with lots of redoing and undoing. But the idea stays, and that's where the inspiration comes from.</p>
       <p>Prints and commissions are open. Message me on Instagram at <a class="ig-link" href="https://www.instagram.com/lunarfizztransport/" target="_blank" rel="noopener">@lunarfizztransport</a>.</p>
-      <p id="stories-note" hidden>Some collages come with a short story I wrote. Open one and click <em>Read the story</em>.</p>
+      <p id="stories-note" hidden>Some collages come with a short story or poem I wrote. Open one and click <em>Read the story</em> (or poem).</p>
     </div>
   </div>
   <div class="status sunken"><span id="files-count">Loading…</span><span>Hand-cut paper, photographed</span></div>
@@ -232,6 +233,7 @@ a, button, .btn, .icon, .file, .task, .win .ctl, .win .bar, [data-open] { cursor
   <div class="body sunken">
     <div class="doc">
       <h3 id="story-title"></h3>
+      <p class="story-note" id="story-note" hidden></p>
       <div class="story-text" id="story-text"></div>
     </div>
   </div>
@@ -247,7 +249,7 @@ a, button, .btn, .icon, .file, .task, .win .ctl, .win .bar, [data-open] { cursor
       <p>By day I'm a data engineer. Outside of work I make collages, play drums, and build things. More and more, those worlds overlap: I'm interested in how technology can support creative work, not replace it.</p>
       <p>On this desktop you'll find:</p>
       <ul>
-        <li><strong>Collages:</strong> hand-cut paper pieces made from old magazines and stray photos.<span id="about-stories" hidden> Some are paired with short stories I wrote.</span></li>
+        <li><strong>Collages:</strong> hand-cut paper pieces made from old magazines and stray photos.<span id="about-stories" hidden> Some are paired with short stories and poems I wrote.</span></li>
         <li><strong>Drum Groove Tool:</strong> a practice tool I built while learning drums. It listens to my playing and shows how my timing sits.</li>
         <li>More side projects as I make them.</li>
       </ul>
@@ -338,7 +340,7 @@ function renderFiles() {
     b.innerHTML = `<div class="thumb"><img alt="" loading="lazy" decoding="async"></div><span></span>`;
     b.querySelector("img").src = src(p); b.querySelector("img").alt = p.title || "";
     b.querySelector("span").textContent = p.title || "Untitled";
-    if (p.story) b.insertAdjacentHTML("beforeend", `<em class="has-story">+ story</em>`);
+    if (p.story) b.insertAdjacentHTML("beforeend", `<em class="has-story">+ ${p.story_type === "poem" ? "poem" : "story"}</em>`);
     b.addEventListener("click", () => openViewer(i));
     box.appendChild(b);
   });
@@ -355,6 +357,7 @@ function openViewer(i) {
   $("v-meta").textContent = [p.year, p.size].filter(Boolean).join(" · ");
   $("v-desc").textContent = p.description || ""; $("v-desc").hidden = !p.description;
   $("v-story-btn").hidden = !p.story;
+  $("v-story-btn").textContent = `Read the ${p.story_type === "poem" ? "poem" : "story"} ▶`;
   openWin("w-viewer");
 }
 function openStory(i) {
@@ -362,6 +365,7 @@ function openStory(i) {
   const name = (p.title || "Untitled") + ".txt";
   $("story-title").textContent = p.title || "Untitled";
   $("story-text").textContent = p.story || "";
+  $("story-note").textContent = p.story_note || ""; $("story-note").hidden = !p.story_note;
   $("story-bar").textContent = name; $("w-story").dataset.title = name;
   openWin("w-story");
 }

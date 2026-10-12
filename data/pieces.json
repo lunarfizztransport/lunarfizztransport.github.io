@@ -49,7 +49,10 @@
     "medium": "",
     "sources": [],
     "description": "This world shrinks into a speck.",
-    "featured": false
+    "featured": false,
+    "story": "Whose barn this is I think I know.\nThey live out on the tranquil snow.\nShe fishes searching for her meal,\nBut swimming fast upstream they go.\n\nA person tends a fire of steel,\nUnconcerned about the ordeal.\nA gentle growing tree still thrives,\nBeneath the sun it starts to heal.\n\nAn owl flying high arrives,\nJust as everyone survives\nThe overwhelming, winding trek\nOf fragile life to stay alive.\n\nA world away beyond this deck\nWe slave to all powerful tech.\nWith far too long a road to check\nThis world now shrinks into a speck.",
+    "story_type": "poem",
+    "story_note": "Inspired by Robert Frost"
   },
   {
     "image": "/images/rome.jpg",

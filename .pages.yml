@@ -28,6 +28,14 @@ content:
       - name: story
         label: Short story (optional; adds a "Read the story" button)
         type: text
+      - name: story_type
+        label: Is the writing a story or a poem?
+        type: select
+        options:
+          values: [story, poem]
+      - name: story_note
+        label: Note under the story title (e.g. Inspired by Robert Frost)
+        type: string
       - name: year
         label: Date (e.g. May 2026)
         type: string
