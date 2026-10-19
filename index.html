@@ -396,10 +396,14 @@ function focusWin(w) {
   w.style.zIndex = ++z;
   renderTasks();
 }
+// Set while a click is opening a window, so that same click doesn't then
+// bring the window it started in (e.g. Collages) back in front of the new one.
+let justOpened = false;
 function openWin(id) {
   const w = $(id); if (!w) return;
   w.hidden = false; w.dataset.open = "1";
   focusWin(w);
+  justOpened = true; setTimeout(() => { justOpened = false; });
   if (location.hash !== "#" + id.slice(2)) history.replaceState(null, "", "#" + id.slice(2));
 }
 function closeWin(w) {
@@ -445,7 +449,7 @@ document.querySelectorAll(".win").forEach(w => {
   // Mouse: bring to front as soon as it's pressed. Touch: wait until the tap
   // finishes, so iPhones don't treat the tap as a hover and drop it.
   w.addEventListener("pointerdown", e => { if (e.pointerType !== "touch") focusWin(w); });
-  w.addEventListener("click", () => focusWin(w));
+  w.addEventListener("click", () => { if (!justOpened) focusWin(w); });
   w.querySelector("[data-close]").onclick = e => { e.stopPropagation(); closeWin(w); };
   w.querySelector("[data-min]").onclick = e => { e.stopPropagation(); minWin(w); };
   w.querySelector("[data-max]").onclick = e => { e.stopPropagation(); w.classList.toggle("max"); };
