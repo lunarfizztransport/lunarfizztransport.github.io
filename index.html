@@ -127,6 +127,8 @@ button { font: inherit; color: inherit; }
 .win .status a { color: var(--select); }
 .win .status .links { display: flex; flex-wrap: wrap; gap: 4px 14px; }
 .app-frame { display: block; width: 100%; height: 100%; border: 0; background: #000; }
+.wtabs { display: flex; gap: 6px; margin: 4px 4px 0; }
+.wtabs .btn[aria-selected="true"] { border-color: var(--chrome-dk) var(--chrome-hi) var(--chrome-hi) var(--chrome-dk); box-shadow: inset 1px 1px 0 var(--chrome-lo); background: #DCDCDC; }
 
 /* Taskbar */
 .taskbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 9999; display: flex; align-items: center; gap: 6px; height: calc(var(--taskbar) + env(safe-area-inset-bottom, 0px)); padding: 4px 6px calc(4px + env(safe-area-inset-bottom, 0px)); border-top: 2px solid var(--chrome-hi); background: var(--chrome); }
@@ -238,9 +240,13 @@ a, button, .btn, .icon, .file, .task, .win .ctl, .win .bar, [data-open] { cursor
 </section>
 
 <!-- Drum tool -->
-<section class="win raised" id="w-drums" data-title="Drum Groove Tool" style="left:240px; top:60px; width:min(640px, calc(100vw - 270px)); height:min(620px, calc(100vh - 110px));" hidden>
+<section class="win raised" id="w-drums" data-title="Drum Groove Tool" style="left:200px; top:28px; width:min(1060px, calc(100vw - 230px)); height:min(760px, calc(100vh - 80px));" hidden>
   <div class="bar"><h2>Drum Groove Tool</h2><button type="button" class="ctl raised" data-min aria-label="Minimize">_</button><button type="button" class="ctl raised max-btn" data-max aria-label="Maximize">□</button><button type="button" class="ctl raised" data-close aria-label="Close">×</button></div>
-  <div class="body sunken">
+  <div class="wtabs" role="tablist" aria-label="Drum Groove Tool">
+    <button type="button" class="btn raised" role="tab" id="dr-tab-about" aria-selected="true" aria-controls="dr-about">About</button>
+    <button type="button" class="btn raised" role="tab" id="dr-tab-try" aria-selected="false" aria-controls="dr-try">Try it out ▶</button>
+  </div>
+  <div class="body sunken" id="dr-about" role="tabpanel" aria-labelledby="dr-tab-about">
     <div class="doc">
       <h3>Drum Groove Tool</h3>
       <p class="tagline">Record yourself playing drums, see exactly how your timing sits, and get coaching plus new grooves and fills in your style.</p>
@@ -260,10 +266,15 @@ a, button, .btn, .icon, .file, .task, .win .ctl, .win .bar, [data-open] { cursor
         <li>how much you swing</li>
       </ul>
       <p>Then it gives feedback like a drum teacher would, with exercises and groove and fill ideas to learn from and make your own. Every idea comes as a MIDI file you can play in GarageBand.</p>
-      <p>It runs on your computer (Python) and works with a mic, phone recordings, or an electronic kit over USB.</p>
-      <div class="row"><a class="btn raised" href="https://github.com/lunarfizztransport/drum-groove-tool" target="_blank" rel="noopener">View the code on GitHub ▶</a></div>
+      <p>You can try it right here: it runs in your browser and works with a mic, phone recordings, or an electronic kit over USB. Your recordings stay on your device. There's also a Python version that runs on your computer.</p>
+      <div class="row">
+        <button type="button" class="btn raised" data-drums-try>Try it out ▶</button>
+        <a class="btn raised" href="https://github.com/lunarfizztransport/drum-groove-tool" target="_blank" rel="noopener">View the code on GitHub ▶</a>
+      </div>
     </div>
   </div>
+  <div class="body sunken" id="dr-try" role="tabpanel" aria-labelledby="dr-tab-try" hidden><iframe class="app-frame" data-src="drums/" title="Drum Groove Tool: record your drumming and see your timing" allow="microphone; midi; autoplay"></iframe></div>
+  <div class="status sunken"><span>Record your drumming, see your timing</span><span class="links"><a href="https://github.com/lunarfizztransport/drum-groove-tool" target="_blank" rel="noopener">Code on GitHub ↗</a><a href="drums/" target="_blank" rel="noopener">Open full screen ↗</a></span></div>
 </section>
 
 <!-- Vigenère cipher -->
@@ -550,6 +561,18 @@ function vgMode(dec) {
   $("vg-enc").setAttribute("aria-pressed", String(!dec)); $("vg-dec").setAttribute("aria-pressed", String(dec));
   vgRun();
 }
+// Drum Groove Tool window: About / Try it out tabs. The app loads on first open.
+function drumsTab(tryIt) {
+  $("dr-tab-about").setAttribute("aria-selected", String(!tryIt));
+  $("dr-tab-try").setAttribute("aria-selected", String(tryIt));
+  $("dr-about").hidden = tryIt;
+  $("dr-try").hidden = !tryIt;
+  const frame = $("dr-try").querySelector("iframe");
+  if (tryIt && !frame.src) frame.src = frame.dataset.src;
+}
+$("dr-tab-about").onclick = () => drumsTab(false);
+$("dr-tab-try").onclick = () => drumsTab(true);
+document.querySelector("[data-drums-try]").onclick = () => drumsTab(true);
 $("vg-enc").onclick = () => vgMode(false);
 $("vg-dec").onclick = () => vgMode(true);
 $("vg-key").addEventListener("input", vgRun);
