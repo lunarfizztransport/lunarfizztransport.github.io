@@ -187,7 +187,7 @@ a, button, .btn, .icon, .file, .task, .win .ctl, .win .bar, [data-open] { cursor
     </button>
     <button type="button" class="icon" role="listitem" data-open="w-pool">
       <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="5" y="2" width="6" height="1" fill="#F2F2F2"/><rect x="4" y="3" width="8" height="1" fill="#F2F2F2"/><rect x="3" y="4" width="10" height="8" fill="#F2F2F2"/><rect x="3" y="5" width="10" height="6" fill="#FFD400"/><rect x="4" y="12" width="8" height="1" fill="#BDBDBD"/><rect x="5" y="13" width="6" height="1" fill="#BDBDBD"/><rect x="6" y="6" width="4" height="4" fill="#FFFFFF"/><rect x="7" y="6" width="2" height="1" fill="#0A0A0A"/><rect x="7" y="7" width="1" height="1" fill="#0A0A0A"/><rect x="8" y="7" width="1" height="2" fill="#0A0A0A"/><rect x="7" y="9" width="2" height="1" fill="#0A0A0A"/><rect x="4" y="4" width="2" height="1" fill="#FFFFFF"/></svg>
-      <span>Pool Coach</span>
+      <span>Cue Coach</span>
     </button>
     <button type="button" class="icon" role="listitem" data-open="w-about">
       <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="1" width="10" height="14" fill="#F2F2F2"/><rect x="10" y="1" width="3" height="3" fill="#BDBDBD"/><rect x="5" y="5" width="6" height="1" fill="#555"/><rect x="5" y="7" width="6" height="1" fill="#555"/><rect x="5" y="9" width="6" height="1" fill="#555"/><rect x="5" y="11" width="4" height="1" fill="#555"/></svg>
@@ -317,9 +317,9 @@ a, button, .btn, .icon, .file, .task, .win .ctl, .win .bar, [data-open] { cursor
 </section>
 
 <!-- Pool coach -->
-<section class="win raised" id="w-pool" data-title="Pool Coach" style="left:150px; top:20px; width:min(1120px, calc(100vw - 180px)); height:min(760px, calc(100vh - 80px));" hidden>
-  <div class="bar"><h2>Pool Coach: Shot Caller</h2><button type="button" class="ctl raised" data-min aria-label="Minimize">_</button><button type="button" class="ctl raised max-btn" data-max aria-label="Maximize">□</button><button type="button" class="ctl raised" data-close aria-label="Close">×</button></div>
-  <div class="body sunken"><iframe class="app-frame" src="pool/" title="Shot Caller pool strategy coach" loading="lazy"></iframe></div>
+<section class="win raised" id="w-pool" data-title="Cue Coach" style="left:150px; top:20px; width:min(1120px, calc(100vw - 180px)); height:min(760px, calc(100vh - 80px));" hidden>
+  <div class="bar"><h2>Cue Coach</h2><button type="button" class="ctl raised" data-min aria-label="Minimize">_</button><button type="button" class="ctl raised max-btn" data-max aria-label="Maximize">□</button><button type="button" class="ctl raised" data-close aria-label="Close">×</button></div>
+  <div class="body sunken"><iframe class="app-frame" src="pool/" title="Cue Coach pool strategy coach" loading="lazy"></iframe></div>
   <div class="status sunken"><span>8-ball and 9-ball strategy coach</span><span class="links"><a href="https://github.com/lunarfizztransport/pool-coach" target="_blank" rel="noopener">Code on GitHub ↗</a><a href="pool/" target="_blank" rel="noopener">Open full screen ↗</a></span></div>
 </section>
 
@@ -348,7 +348,7 @@ a, button, .btn, .icon, .file, .task, .win .ctl, .win .bar, [data-open] { cursor
         <li><strong>Collages:</strong> hand-cut paper pieces made from old magazines and stray photos.<span id="about-stories" hidden> Some are paired with short stories and poems I wrote.</span></li>
         <li><strong>Drum Groove Tool:</strong> a practice tool I built while learning drums. It listens to my playing and shows how my timing sits.</li>
         <li><strong>Vigenère Cipher:</strong> encrypt and decrypt messages with a classic 16th-century cipher, right in the browser.</li>
-        <li><strong>Pool Coach:</strong> I love playing pool, and strategy is the hard part. Call your shot on an 8-ball or 9-ball table and a coach that simulates every option tells you what it would play and why.</li>
+        <li><strong>Cue Coach:</strong> I love playing pool, and strategy is the hard part. Call your shot on an 8-ball or 9-ball table and a coach that simulates every option tells you what it would play and why.</li>
         <li>More side projects as I make them.</li>
       </ul>
       <p>Say hi on Instagram at <a class="ig-link" href="https://www.instagram.com/lunarfizztransport/" target="_blank" rel="noopener">@lunarfizztransport</a>, or see my code on <a href="https://github.com/lunarfizztransport" target="_blank" rel="noopener">GitHub</a>.</p>
@@ -362,7 +362,7 @@ a, button, .btn, .icon, .file, .task, .win .ctl, .win .bar, [data-open] { cursor
     <li><button type="button" class="item" role="menuitem" data-open="w-collages">Collages</button></li>
     <li><button type="button" class="item" role="menuitem" data-open="w-drums">Drum Groove Tool</button></li>
     <li><button type="button" class="item" role="menuitem" data-open="w-vigenere">Vigenère Cipher</button></li>
-    <li><button type="button" class="item" role="menuitem" data-open="w-pool">Pool Coach</button></li>
+    <li><button type="button" class="item" role="menuitem" data-open="w-pool">Cue Coach</button></li>
     <li><button type="button" class="item" role="menuitem" data-open="w-about">About.txt</button></li>
     <li><hr></li>
     <li><a class="item" id="ig-menu" role="menuitem" href="https://www.instagram.com/lunarfizztransport/" target="_blank" rel="noopener">Instagram ↗</a></li>
@@ -433,7 +433,7 @@ function renderTasks() {
 }
 document.querySelectorAll("[data-open]").forEach(el => el.addEventListener("click", () => openWin(el.dataset.open)));
 
-/* Clicks inside an embedded page (Pool Coach) never reach its window, so
+/* Clicks inside an embedded page (Cue Coach) never reach its window, so
    bring the window to the front when the page takes focus. */
 window.addEventListener("blur", () => setTimeout(() => {
   const f = document.activeElement;

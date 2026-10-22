@@ -20,7 +20,7 @@ screen with larger buttons, and the Start menu is the way to get around.
 | **Collages** | A file browser of my collages. Click one to open it in a viewer with its date, size and description. Collages with a story or poem show a **Read the story / poem** button that opens the writing in its own text window. |
 | **Drum Groove Tool** | A practice tool I built while learning drums. The **About** tab describes it, with demo pages it made from my own playing: how it learned my kit, a take analyzed, and the same take with AI coaching. The **Try it out** tab runs it right in the window: record yourself against a click (or upload a phone recording, or play an e-kit over USB) and see whether you rush or drag, how consistent you are, which drum is early or late, and how much you swing. Optional coaching from Claude with your own API key. Also at [/drums/](https://lunarfizztransport.github.io/drums/). |
 | **Vigenère Cipher** | Encrypt and decrypt text with the classic Vigenère cipher, live as you type. Shows how each key letter lines up with the message. Runs entirely in the browser. |
-| **Pool Coach** | Shot Caller, a pool strategy trainer. Pick 8-ball or 9-ball, call your shot (ball, pocket, spin, speed, or a safety), and a coach that simulates every option grades your call and shows what it would play and why. Also at [/pool/](https://lunarfizztransport.github.io/pool/). |
+| **Cue Coach** | A pool strategy trainer. Pick 8-ball or 9-ball, call your shot (ball, pocket, spin, speed, or a safety), and a coach that simulates every option grades your call and shows what it would play and why. Also at [/pool/](https://lunarfizztransport.github.io/pool/). |
 | **About.txt** | What this site is about. |
 | **Instagram / GitHub** | Links out. |
 
@@ -42,7 +42,8 @@ data/site.json      site settings: my name and Instagram handle
 images/             collage photos
 drums/index.html    Drum Groove Tool, embedded by its window; with drums/groove.js, a copy of web/ from github.com/lunarfizztransport/drum-groove-tool
 drums/demo*, kit/   demo pages the Python version made from my playing, and their audio
-pool/index.html     Pool Coach (Shot Caller), embedded by the Pool Coach window; a copy of index.html from github.com/lunarfizztransport/pool-coach
+pool/               Cue Coach, shown in its window: index.html, plus manifest.webmanifest, sw.js and icons/
+                    so it installs as an app; a copy of github.com/lunarfizztransport/pool-coach
 .pages.yml          Pages CMS configuration for editing collages in a browser
 ```
 
