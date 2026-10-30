@@ -189,6 +189,10 @@ a, button, .btn, .icon, .file, .task, .win .ctl, .win .bar, [data-open] { cursor
       <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="5" y="2" width="6" height="1" fill="#F2F2F2"/><rect x="4" y="3" width="8" height="1" fill="#F2F2F2"/><rect x="3" y="4" width="10" height="8" fill="#F2F2F2"/><rect x="3" y="5" width="10" height="6" fill="#FFD400"/><rect x="4" y="12" width="8" height="1" fill="#BDBDBD"/><rect x="5" y="13" width="6" height="1" fill="#BDBDBD"/><rect x="6" y="6" width="4" height="4" fill="#FFFFFF"/><rect x="7" y="6" width="2" height="1" fill="#0A0A0A"/><rect x="7" y="7" width="1" height="1" fill="#0A0A0A"/><rect x="8" y="7" width="1" height="2" fill="#0A0A0A"/><rect x="7" y="9" width="2" height="1" fill="#0A0A0A"/><rect x="4" y="4" width="2" height="1" fill="#FFFFFF"/></svg>
       <span>Cue Coach</span>
     </button>
+    <button type="button" class="icon" role="listitem" data-open="w-ski">
+      <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="12" y="1" width="1" height="3" fill="#8EC5FF"/><rect x="11" y="2" width="3" height="1" fill="#8EC5FF"/><rect x="7" y="3" width="2" height="1" fill="#F2F2F2"/><rect x="6" y="4" width="4" height="1" fill="#F2F2F2"/><rect x="5" y="5" width="6" height="1" fill="#F2F2F2"/><rect x="4" y="6" width="8" height="1" fill="#9AA7B4"/><rect x="3" y="7" width="10" height="1" fill="#9AA7B4"/><rect x="2" y="8" width="12" height="1" fill="#7B8794"/><rect x="1" y="9" width="14" height="3" fill="#7B8794"/><rect x="6" y="9" width="1" height="1" fill="#F2F2F2"/><rect x="10" y="10" width="1" height="1" fill="#F2F2F2"/><rect x="1" y="12" width="14" height="2" fill="#F2F2F2"/></svg>
+      <span>Powder Odds</span>
+    </button>
     <button type="button" class="icon" role="listitem" data-open="w-about">
       <svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="1" width="10" height="14" fill="#F2F2F2"/><rect x="10" y="1" width="3" height="3" fill="#BDBDBD"/><rect x="5" y="5" width="6" height="1" fill="#555"/><rect x="5" y="7" width="6" height="1" fill="#555"/><rect x="5" y="9" width="6" height="1" fill="#555"/><rect x="5" y="11" width="4" height="1" fill="#555"/></svg>
       <span>About.txt</span>
@@ -323,6 +327,13 @@ a, button, .btn, .icon, .file, .task, .win .ctl, .win .bar, [data-open] { cursor
   <div class="status sunken"><span>8-ball and 9-ball strategy coach</span><span class="links"><a href="https://github.com/lunarfizztransport/pool-coach" target="_blank" rel="noopener">Code on GitHub ↗</a><a href="pool/" target="_blank" rel="noopener">Open full screen ↗</a></span></div>
 </section>
 
+<!-- Powder Odds -->
+<section class="win raised" id="w-ski" data-title="Powder Odds" style="left:190px; top:36px; width:min(1000px, calc(100vw - 220px)); height:min(760px, calc(100vh - 90px));" hidden>
+  <div class="bar"><h2>Powder Odds</h2><button type="button" class="ctl raised" data-min aria-label="Minimize">_</button><button type="button" class="ctl raised max-btn" data-max aria-label="Maximize">□</button><button type="button" class="ctl raised" data-close aria-label="Close">×</button></div>
+  <div class="body sunken"><iframe class="app-frame" src="ski/?embed=1" title="Powder Odds snow estimates for Ikon and Epic mountains" loading="lazy"></iframe></div>
+  <div class="status sunken"><span>Expected new snow on your ski dates</span><span class="links"><a href="ski/" target="_blank" rel="noopener">Open full screen ↗</a></span></div>
+</section>
+
 <!-- Story -->
 <section class="win raised" id="w-story" data-title="Story.txt" style="left:260px; top:70px; width:min(600px, calc(100vw - 290px)); height:min(560px, calc(100vh - 120px));" hidden>
   <div class="bar"><h2 id="story-bar">Story.txt</h2><button type="button" class="ctl raised" data-min aria-label="Minimize">_</button><button type="button" class="ctl raised max-btn" data-max aria-label="Maximize">□</button><button type="button" class="ctl raised" data-close aria-label="Close">×</button></div>
@@ -349,6 +360,7 @@ a, button, .btn, .icon, .file, .task, .win .ctl, .win .bar, [data-open] { cursor
         <li><strong>Drum Groove Tool:</strong> a practice tool I built while learning drums. It listens to my playing and shows how my timing sits.</li>
         <li><strong>Vigenère Cipher:</strong> encrypt and decrypt messages with a classic 16th-century cipher, right in the browser.</li>
         <li><strong>Cue Coach:</strong> I love playing pool, and strategy is the hard part. Call your shot on an 8-ball or 9-ball table and a coach that simulates every option tells you what it would play and why.</li>
+        <li><strong>Powder Odds:</strong> snow has been hit or miss the last few winters, so I built this to pick where to ski. Choose a pass and your dates, and it estimates new snow at each Ikon and Epic mountain: the forecast when the trip is close, and past winters adjusted for El Niño when it's months away.</li>
         <li>More side projects as I make them.</li>
       </ul>
       <p>Say hi on Instagram at <a class="ig-link" href="https://www.instagram.com/lunarfizztransport/" target="_blank" rel="noopener">@lunarfizztransport</a>, or see my code on <a href="https://github.com/lunarfizztransport" target="_blank" rel="noopener">GitHub</a>.</p>
@@ -363,6 +375,7 @@ a, button, .btn, .icon, .file, .task, .win .ctl, .win .bar, [data-open] { cursor
     <li><button type="button" class="item" role="menuitem" data-open="w-drums">Drum Groove Tool</button></li>
     <li><button type="button" class="item" role="menuitem" data-open="w-vigenere">Vigenère Cipher</button></li>
     <li><button type="button" class="item" role="menuitem" data-open="w-pool">Cue Coach</button></li>
+    <li><button type="button" class="item" role="menuitem" data-open="w-ski">Powder Odds</button></li>
     <li><button type="button" class="item" role="menuitem" data-open="w-about">About.txt</button></li>
     <li><hr></li>
     <li><a class="item" id="ig-menu" role="menuitem" href="https://www.instagram.com/lunarfizztransport/" target="_blank" rel="noopener">Instagram ↗</a></li>
@@ -600,7 +613,7 @@ async function getJSON(path) {
   try { const r = await fetch(path + "?v=" + Date.now()); return r.ok ? await r.json() : null; } catch (e) { return null; }
 }
 (async function start() {
-  const map = { collages: "w-collages", drums: "w-drums", vigenere: "w-vigenere", pool: "w-pool", about: "w-about" };
+  const map = { collages: "w-collages", drums: "w-drums", vigenere: "w-vigenere", pool: "w-pool", ski: "w-ski", about: "w-about" };
   // Open on a bare desktop; a direct link like #collages opens that window.
   if (map[location.hash.slice(1)]) openWin(map[location.hash.slice(1)]);
   const [site, pieces] = await Promise.all([getJSON("data/site.json"), getJSON("data/pieces.json")]);

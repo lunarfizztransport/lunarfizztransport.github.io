@@ -21,6 +21,7 @@ screen with larger buttons, and the Start menu is the way to get around.
 | **Drum Groove Tool** | A practice tool I built while learning drums. The **About** tab describes it, with demo pages it made from my own playing: how it learned my kit, a take analyzed, and the same take with AI coaching. The **Try it out** tab runs it right in the window: record yourself against a click (or upload a phone recording, or play an e-kit over USB) and see whether you rush or drag, how consistent you are, which drum is early or late, and how much you swing. Optional coaching from Claude with your own API key. Also at [/drums/](https://lunarfizztransport.github.io/drums/). |
 | **Vigenère Cipher** | Encrypt and decrypt text with the classic Vigenère cipher, live as you type. Shows how each key letter lines up with the message. Runs entirely in the browser. |
 | **Cue Coach** | A pool strategy trainer. Pick 8-ball or 9-ball, call your shot (ball, pocket, spin, speed, or a safety), and a coach that simulates every option grades your call and shows what it would play and why. Also at [/pool/](https://lunarfizztransport.github.io/pool/). |
+| **Powder Odds** | Expected new snow on your ski dates at Ikon and Epic mountains. Pick a pass and dates: close-in trips use the snowfall forecast, trips weeks out use the ECMWF long-range outlook, and trips months out use 33 winters of history adjusted for this winter's strong El Niño. Also at [/ski/](https://lunarfizztransport.github.io/ski/). Built from the `ski-snow` project (`assemble.py` writes `ski/index.html`). |
 | **About.txt** | What this site is about. |
 | **Instagram / GitHub** | Links out. |
 
@@ -28,6 +29,7 @@ Direct links to a window: [#collages](https://lunarfizztransport.github.io/#coll
 [#drums](https://lunarfizztransport.github.io/#drums),
 [#vigenere](https://lunarfizztransport.github.io/#vigenere),
 [#pool](https://lunarfizztransport.github.io/#pool),
+[#ski](https://lunarfizztransport.github.io/#ski),
 [#about](https://lunarfizztransport.github.io/#about).
 
 ## How it's built
