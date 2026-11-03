@@ -123,7 +123,23 @@ details a { color: var(--select); }
 .embedded .win { border: 0; box-shadow: none; max-width: none; }
 .embedded .win > .bar, .embedded .taskbar { display: none; }
 .embedded .win { min-height: 100vh; }
-@media (min-width: 721px) { .embedded .listbox { height: max(430px, calc(100vh - 330px)); } }
+/* On wider screens, fit exactly one screen: the panes take whatever height is left and the list scrolls inside */
+@media (min-width: 721px) {
+  .embedded .win { height: 100vh; min-height: 0; }
+  .embedded .content { flex: 1; min-height: 0; padding: 10px; gap: 10px; grid-template-rows: auto auto minmax(0, 1fr) auto; }
+  .embedded .panes { min-height: 0; grid-template-rows: minmax(0, 1fr); }
+  .embedded .panes > div:first-child { display: flex; flex-direction: column; min-height: 0; }
+  .embedded .listbox { flex: 1; height: auto; min-height: 0; }
+  .embedded .detail { overflow-y: auto; gap: 10px; padding: 12px 14px; }
+  .embedded .item { font-size: 19px; }
+  .embedded .bigline .big { font-size: 64px; }
+  .embedded .days { height: 110px; }
+}
+@media (min-width: 721px) and (max-height: 760px) {
+  .embedded .bigline .big { font-size: 52px; }
+  .embedded .days { height: 84px; }
+  .embedded .msg { padding: 6px 10px; }
+}
 </style>
 
 <script>document.documentElement.classList.add("embedded");</script>
