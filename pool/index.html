@@ -359,6 +359,7 @@ body.portrait .side.open .more-btn { display: none; }
         <div><b>Speed beats spin</b><span>Most position errors are speed errors, and hard shots cost accuracy.</span></div>
         <div><b>When to play safe</b><span>If your best pot is under about 45% and a safety holds your opponent under 40%, play safe.</span></div>
         <div><b>9-ball and the push out</b><span>Hit the lowest ball first. After the break you may push: leave a coin-flip shot so your opponent's choice doesn't help them.</span></div>
+        <div><b>Call the 8 and the 9</b><span>You must call the pocket. An 8 in any other pocket loses the rack, and an uncalled 9 comes back up on the foot spot. To bank the 8 or 9, or play a combo on the 9, tap the ball, tap its pocket, then drag to aim.</span></div>
         <div><b>Kicks</b><span>Aim at the ball's mirror image across the rail, then adjust for how the cushion takes speed off the bounce.</span></div>
       </div>
     </section>
@@ -677,6 +678,15 @@ function bestShot(balls, group) {
   return best;
 }
 
+// The 8 and the 9 only count in the pocket that was called.
+function calledIn(r, id, c) { return !!c && c.t === id && r.potted.some(q => q.id === id && q.pk === c.pk); }
+function respot9(balls) {
+  const b = balls[9];
+  let x = W * 0.75;
+  while (balls.some(o => o.on && o.id !== 9 && Math.hypot(o.x - x, o.y - H / 2) < D + 0.05)) x += D;
+  Object.assign(b, { x, y: H / 2, on: true });
+}
+
 // One way to play a pot: a spin and a speed, aimed to allow for throw, simulated, and scored.
 function makeVariant(balls, group, o, sp, sd) {
   const nine = group === 'nine', t = balls[o.t], k = o.pk, V = speedV(sd.L);
@@ -688,8 +698,8 @@ function makeVariant(balls, group, o, sp, sd) {
   v.foul = r.firstHit !== t.id || r.scratch || (!nine && t.id !== 8 && r.potted.some(q => q.id === 8));
   v.exec = o.p * sd.f * (sp.s ? 0.96 : 1);
   if (made && !v.foul) {
-    if (nine ? r.potted.some(q => q.id === 9) : t.id === 8) { v.leave = 1; v.win = true; }
-    else { const nb = bestShot(r.balls, group); v.leave = nb ? nb.p : 0; v.next = nb; }
+    if (t.id === (nine ? 9 : 8)) { v.leave = 1; v.win = true; }
+    else { if (nine && r.potted.some(q => q.id === 9)) respot9(r.balls); const nb = bestShot(r.balls, group); v.leave = nb ? nb.p : 0; v.next = nb; }
     v.score = v.exec * (0.3 + 0.7 * v.leave);
   } else { v.leave = 0; v.score = 0; }
   o.variants[sp.k + '|' + sd.k] = v;
@@ -731,7 +741,7 @@ function analyze(balls, group, opts = {}) {
       const a = base + Math.asin(f * D / d);
       for (const mph of SAFE_MPH) {
         const r = simulate(balls, a, mph * MPH, 0, { cuePath: true });
-        if (r.firstHit !== t.id || r.scratch || (!nine && r.potted.some(q => q.id === 8)) || !r.rail) continue;
+        if (r.firstHit !== t.id || r.scratch || r.potted.some(q => q.id === (nine ? 9 : 8)) || !r.rail) continue;
         const nb = bestShot(r.balls, opp);
         const oppP = nb ? nb.p : 0;
         const cand = { t: t.id, f, mph, L: lenFor(mph), s0: 0, angle: a, oppP, oppNext: nb, cuePath: r.cuePath, end: r.balls[0], after: r.balls };
@@ -845,7 +855,7 @@ const thickness = f => { const a = Math.abs(f); return a < 0.1 ? 'full' : a < 0.
 
 let state = { balls: [], group: 'solids' };
 let analysis = null, analyzing = false;
-let call = { t: null, pk: null, safety: false, aim: null };
+let call = { t: null, pk: null, safety: false, aim: null }; // call.money: called pocket for the 8 or 9 on a hand-aimed shot, such as a bank or a combo ('pick' until a pocket is chosen)
 let spin = 'stun', speed = 'medium';
 let revealed = false, preview = null, graded = false;
 let beforeShot = null, busy = false, anim = null, turnOver = false;
@@ -1217,6 +1227,10 @@ function draw() {
       if (call.pk != null && (reviewing || !(revealed && preview))) drawShotLines(shotGeom(cue, tb, call.pk, state.balls), '#ffe9a8');
       if (call.pk != null) ring(POCKETS[call.pk].cx, POCKETS[call.pk].cy, 3.3, '#ffe9a8', 0.25);
     }
+    if (call.money != null) {
+      ring(state.balls[moneyBall()].x, state.balls[moneyBall()].y, R + 0.55, '#ffe9a8', 0.22);
+      if (call.money !== 'pick') ring(POCKETS[call.money].cx, POCKETS[call.money].cy, 3.3, '#ffe9a8', 0.25);
+    }
   }
   // balls
   if (anim) {
@@ -1270,6 +1284,8 @@ $('speedSeg').addEventListener('click', e => { const b = e.target.closest('butto
 
 function callText(c = call) {
   if (c.push) return c.aim != null ? 'Push out, aimed' : 'Push out';
+  if (c.money === 'pick') return '9-ball, now pick a pocket';
+  if (c.money != null) return `${moneyBall()}-ball, ${pocketName(c.money)}${c.aim != null ? ', free aim' : ', now drag to aim'}`;
   if (c.aim != null) return (c.safety ? 'Safety, ' : '') + 'free aim';
   if (c.safety) return 'Play safe';
   if (c.t != null && c.pk != null) return `${c.t}-ball, ${pocketName(c.pk)}`;
@@ -1333,6 +1349,7 @@ function updateButtons() {
 }
 
 const isNine = () => state.group === 'nine';
+const moneyBall = () => isNine() ? 9 : 8;
 const isKick = () => state.group === 'kick';
 const KICK_T = 1;
 let lastKick = null;
@@ -1342,11 +1359,11 @@ function defaultStatus() {
   if (isKick()) return 'The <strong>1</strong> is blocked. Drag on the table to aim at a rail so the cue ball comes off it and hits the 1 first. The yellow line shows which diamond you’re aiming at.';
   if (isNine()) {
     const lo = lowestOn(state.balls);
-    return (lo === 9 ? 'Only the 9 is left. <strong>Pick a pocket for the 9.</strong>' : `The lowest ball is the <strong>${lo}</strong>, so you must hit it first. Pick a pocket for it. Making the 9 on any legal shot wins.`) +
+    return (lo === 9 ? 'Only the 9 is left. <strong>Pick a pocket for the 9.</strong>' : `The lowest ball is the <strong>${lo}</strong>, so you must hit it first. Pick a pocket for it. To go for the 9 early, tap it, pick its pocket, then drag to aim. An uncalled 9 comes back up.`) +
       (pushOk ? ' This is the shot right after the break, so you can also <strong>push out</strong>.' : !rackShots.length && !state.afterBreak ? ' This is a mid-rack position, so <strong>no push out</strong>: pot it, play safe, or kick.' : '');
   }
   const n = ownLeft();
-  return n ? `You have <strong>${n}</strong> solid${n > 1 ? 's' : ''} left. Pick a ball, then a pocket.` : 'Your group is clear. <strong>Call the 8-ball.</strong>';
+  return n ? `You have <strong>${n}</strong> solid${n > 1 ? 's' : ''} left. Pick a ball, then a pocket.` : 'Your group is clear. <strong>Call the 8-ball.</strong> If it drops in any other pocket, you lose the rack.';
 }
 
 // ---------- Grading ----------
@@ -1983,7 +2000,7 @@ $('pushBtn').addEventListener('click', () => {
 });
 $('safeBtn').addEventListener('click', () => {
   if (busy || turnOver) return;
-  call.safety = !call.safety; call.push = false;
+  call.safety = !call.safety; call.push = false; call.money = null;
   if (call.safety) { call.t = null; call.pk = null; call.aim = null; }
   else if (isNine()) call.t = lowestOn(state.balls);
   callChanged();
@@ -2025,7 +2042,9 @@ $('shootBtn').addEventListener('click', () => {
     if (!analysis.push) return setStatus('Drag on the table to aim your push.');
     return run(analysis.push.angle, speedV(analysis.push.L), 0, { push: true });
   }
-  if (call.aim != null) return run(call.aim, speedV(sd.L), freeSpin(sp.s, sd), { safety: call.safety });
+  if (call.money === 'pick') return setStatus('Pick a pocket for the 9 first.');
+  if (call.money != null && call.aim == null) return setStatus(`Drag on the table to aim at the ${lowestOn(state.balls)} first.`);
+  if (call.aim != null) return run(call.aim, speedV(sd.L), freeSpin(sp.s, sd), { safety: call.safety, called: call.money != null ? { t: moneyBall(), pk: call.money } : null });
   if (call.t != null && call.pk != null) {
     const g = shotGeom(cue, state.balls[call.t], call.pk, state.balls);
     const s0 = strikeSpin(speedV(sd.L), sp.s, g.d1);
@@ -2097,17 +2116,10 @@ function run(angle, v, s, ctxInfo) {
   requestAnimationFrame(step);
 }
 
-function respot9() {
-  const b = state.balls[9];
-  let x = W * 0.75;
-  while (state.balls.some(o => o.on && o.id !== 9 && Math.hypot(o.x - x, o.y - H / 2) < D + 0.05)) x += D;
-  Object.assign(b, { x, y: H / 2, on: true });
-}
-
 function judgeNine(r, info, lowBefore) {
   if (info.push) {
     const pot9 = r.potted.some(q => q.id === 9);
-    if (pot9) respot9();
+    if (pot9) respot9(state.balls);
     if (r.scratch) return { msg: '<strong class="b">Scratch on the push.</strong> That’s still a foul. Opponent gets ball in hand.', cont: false };
     const nb = bestShot(state.balls, 'nine'), p = nb ? nb.p : 0;
     const spot = pot9 ? ' The 9 comes back up on the foot spot.' : '';
@@ -2117,16 +2129,20 @@ function judgeNine(r, info, lowBefore) {
   const potted = r.potted.filter(q => q.id !== 0);
   const pot9 = potted.some(q => q.id === 9);
   const legal = r.firstHit === lowBefore && !r.scratch;
+  const won = legal && calledIn(r, 9, info.called), others = potted.filter(q => q.id !== 9);
+  if (pot9 && !won) respot9(state.balls);
   let msg, cont = false;
   if (r.firstHit < 0) msg = '<strong class="b">Foul.</strong> The cue ball didn’t touch a ball. Opponent gets ball in hand.';
   else if (r.firstHit !== lowBefore) msg = `<strong class="b">Foul.</strong> You hit the ${r.firstHit} first, but the lowest ball was the ${lowBefore}. Opponent gets ball in hand.`;
   else if (r.scratch) msg = '<strong class="b">Scratch.</strong> Opponent gets ball in hand.';
-  if (pot9 && legal) msg = `<strong class="g">9-ball down. You won the rack.</strong>${lowBefore !== 9 ? ' A legal hit that makes the 9 wins, even early.' : ''}`;
-  else if (pot9) { respot9(); msg += ' The 9 comes back up on the foot spot.'; }
-  else if (legal && potted.length) {
-    const called = info.called && potted.some(q => q.id === info.called.t && q.pk === info.called.pk);
-    msg = `<strong class="g">${called ? 'Made it.' : 'Ball down.'}</strong> ` + (potted.length > 1 ? `Pocketed ${potted.map(q => q.id).join(' and ')}. ` : '') + 'Still your turn. ';
+  if (won) msg = '<strong class="g">9-ball down. You won the rack.</strong>';
+  else if (!legal && pot9) msg += ' The 9 comes back up on the foot spot.';
+  else if (legal && others.length) {
+    const called = info.called && others.some(q => q.id === info.called.t && q.pk === info.called.pk);
+    msg = `<strong class="g">${called ? 'Made it.' : 'Ball down.'}</strong> ` + (others.length > 1 ? `Pocketed ${others.map(q => q.id).join(' and ')}. ` : '') + (pot9 ? 'The 9 wasn’t called, so it comes back up on the foot spot. ' : '') + 'Still your turn. ';
     cont = true;
+  } else if (legal && pot9) {
+    msg = `<strong class="w">The 9 ${info.called && info.called.t === 9 ? 'missed your called pocket' : 'wasn’t called'}.</strong> It comes back up on the foot spot and your turn ends.`;
   } else if (legal && info.safety) {
     const nb = bestShot(state.balls, 'nine');
     msg = r.rail ? `<strong>Safety played.</strong>` + peek(` Your opponent’s best shot now: ${nb ? pct(nb.p) + ' on the ' + nb.t : 'nothing makeable'}.`) : '<strong class="b">Foul.</strong> No ball reached a rail after contact.';
@@ -2165,7 +2181,10 @@ function judge(r, info, ownBefore) {
   let msg, cont = false;
   if (r.firstHit < 0) msg = '<strong class="b">Foul.</strong> The cue ball didn’t touch a ball. Opponent gets ball in hand.';
   else if (pot8) {
-    msg = (ownBefore === 0 && legalFirst && !r.scratch) ? '<strong class="g">8-ball down. You won the rack.</strong>' : '<strong class="b">The 8 went down early.</strong> That loses the rack.';
+    const onEight = ownBefore === 0 && legalFirst && !r.scratch;
+    msg = onEight && calledIn(r, 8, info.called) ? '<strong class="g">8-ball down. You won the rack.</strong>'
+      : onEight ? '<strong class="b">The 8 didn’t go in a called pocket.</strong> That loses the rack.'
+      : '<strong class="b">The 8 went down early.</strong> That loses the rack.';
   } else if (r.scratch) msg = '<strong class="b">Scratch.</strong> Opponent gets ball in hand.';
   else if (!legalFirst) msg = `<strong class="b">Foul.</strong> You hit the ${r.firstHit} first. Opponent gets ball in hand.`;
   else if (potOwn.length) {
@@ -2281,18 +2300,24 @@ function judgeOpp(r, plan, group, before) {
   const pots = r.potted.filter(q => q.id !== 0).map(q => q.id);
   if (isNine()) {
     const lo = lowestOn(before), legal = r.firstHit === lo && !r.scratch, pot9 = pots.includes(9);
-    if (pot9 && legal) return { over: true, short: 'made the 9 and won the rack', head: 'Opponent wins' };
-    if (pot9) respot9();
+    if (legal && calledIn(r, 9, plan.call)) return { over: true, short: 'made the 9 and won the rack', head: 'Opponent wins' };
+    if (pot9) respot9(state.balls);
     if (r.firstHit < 0) return { foul: true, short: 'missed every ball (foul)' };
     if (r.firstHit !== lo) return { foul: true, short: `hit the ${r.firstHit} before the ${lo} (foul)` };
     if (r.scratch) return { foul: true, short: 'scratched' };
-    if (pots.length) return { cont: true, short: `made the ${pots.join(' and ')}` };
+    const others = pots.filter(id => id !== 9);
+    if (others.length) return { cont: true, short: `made the ${others.join(' and ')}` };
+    if (pot9) return { short: 'dropped the 9 without calling it, so it comes back up' };
     if (!r.rail) return { foul: true, short: 'didn’t get a ball to a rail (foul)' };
     return { short: plan.kind === 'shot' ? `missed ${plan.desc}` : `played ${plan.desc}` };
   }
   const ids = groupIds(group), ownBefore = ids.filter(id => before[id].on).length;
   const legalFirst = ownBefore === 0 ? r.firstHit === 8 : ids.includes(r.firstHit);
-  if (pots.includes(8)) return ownBefore === 0 && legalFirst && !r.scratch ? { over: true, short: 'made the 8 and won the rack', head: 'Opponent wins' } : { over: true, youWin: true, short: 'sank the 8 early. You win the rack' };
+  if (pots.includes(8)) {
+    const onEight = ownBefore === 0 && legalFirst && !r.scratch;
+    return onEight && calledIn(r, 8, plan.call) ? { over: true, short: 'made the 8 and won the rack', head: 'Opponent wins' }
+      : { over: true, youWin: true, short: `${onEight ? 'put the 8 in the wrong pocket' : 'sank the 8 early'}. You win the rack` };
+  }
   if (r.firstHit < 0) return { foul: true, short: 'missed every ball (foul)' };
   if (!legalFirst) return { foul: true, short: `hit the ${r.firstHit} first (foul)` };
   if (r.scratch) return { foul: true, short: 'scratched' };
@@ -2358,6 +2383,7 @@ canvas.addEventListener('pointermove', e => {
   if (!drag.moved && Math.hypot(p.x - drag.start.x, p.y - drag.start.y) < 1.8) return;
   drag.moved = true;
   const cue = state.balls[0];
+  if (call.t === moneyBall() && call.pk != null) call.money = call.pk; // keeps the call on a bank
   call.aim = Math.atan2(p.y - cue.y, p.x - cue.x); call.t = null; call.pk = null;
   callChanged();
 });
@@ -2367,11 +2393,20 @@ canvas.addEventListener('pointerup', e => {
   showTab('call');
   if (moved && isKick()) { setStatus('Aim set. The yellow marker shows the diamond you’re aiming at. Pick a speed and shoot.'); return; }
   if (isKick()) { setStatus('Drag on the table to aim at a rail.'); return; }
-  if (moved) { setStatus('Free aim set. The yellow line shows the contact point and where the object ball goes. Shoot when ready.'); return; }
+  if (moved) {
+    const uncalled = call.money === 'pick' ? ' Now click a pocket for the 9.' : call.money != null ? ` The ${moneyBall()} is called in the ${pocketName(call.money)}.`
+      : isNine() ? (lowestOn(state.balls) === 9 ? ' To win on the 9, tap it, tap a pocket, then drag. Otherwise it comes back up.' : '')
+      : !ownLeft() ? ' To win on the 8, tap it, tap a pocket, then drag. Otherwise dropping it loses the rack.' : '';
+    setStatus('Free aim set. The yellow line shows the contact point and where the object ball goes.' + uncalled + ' Shoot when ready.'); return;
+  }
   const p = toTable(e);
   const targets = targetsFor(state.balls, state.group);
   const tapR = Math.max(D * 1.1, 22 / SC);
   const hitBall = targets.sort((a, b) => Math.hypot(a.x - p.x, a.y - p.y) - Math.hypot(b.x - p.x, b.y - p.y)).find(b => Math.hypot(b.x - p.x, b.y - p.y) < tapR);
+  const b9 = state.balls[9], d9 = Math.hypot(b9.x - p.x, b9.y - p.y); // the 9 often sits right beside the lowest ball on a combo
+  if (isNine() && b9.on && lowestOn(state.balls) !== 9 && d9 < tapR && (!hitBall || d9 < Math.hypot(hitBall.x - p.x, hitBall.y - p.y))) {
+    Object.assign(call, { t: null, pk: null, safety: false, push: false, money: 'pick' }); callChanged(); setStatus('9-ball selected for an early call. Now click its pocket.'); return;
+  }
   if (hitBall) { call = { t: hitBall.id, pk: null, safety: false, aim: null }; callChanged(); setStatus(`${hitBall.id}-ball selected. Now click a pocket.`); return; }
   const other = state.balls.find(b => b.on && b.id !== 0 && Math.hypot(b.x - p.x, b.y - p.y) < D * 1.1);
   if (other) {
@@ -2382,6 +2417,12 @@ canvas.addEventListener('pointerup', e => {
   let pk = -1, bd = 6;
   POCKETS.forEach((q, k) => { const d = Math.hypot(q.cx - p.x, q.cy - p.y); if (d < bd) { bd = d; pk = k; } });
   if (pk >= 0) {
+    if (call.money != null) {
+      call.money = pk; callChanged();
+      const lo = isNine() ? lowestOn(state.balls) : 8;
+      setStatus(`Called the ${moneyBall()} in the ${pocketName(pk)}. ${call.aim != null ? 'Shoot when ready.' : `Now drag to aim at the ${lo} for your combo or carom.`} You still have to hit the ${lo} first.`);
+      return;
+    }
     if (call.t == null && isNine()) call.t = lowestOn(state.balls);
     if (call.t == null) { setStatus('Pick one of your balls first, then the pocket.'); return; }
     call.pk = pk; call.safety = false; call.aim = null; callChanged();
